@@ -1,8 +1,8 @@
-PWD /home/mich/Desktop/KITSummerSemester/VulenrabilityDiscovery/paper
+PWD /home/mich/Desktop/KITSummerSemester/VulenrabilityDiscovery/Finding Vulnerabilities in Smart Contracts
 INPUT /usr/local/texlive/2021/texmf.cnf
 INPUT /usr/local/texlive/2021/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /home/mich/Desktop/KITSummerSemester/VulenrabilityDiscovery/paper/sample-sigconf-i13n.tex
+INPUT /home/mich/Desktop/KITSummerSemester/VulenrabilityDiscovery/Finding Vulnerabilities in Smart Contracts/sample-sigconf-i13n.tex
 OUTPUT sample-sigconf-i13n.log
 INPUT ./acmart.cls
 INPUT ./acmart.cls
