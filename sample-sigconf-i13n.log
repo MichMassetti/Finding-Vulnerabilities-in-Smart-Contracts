@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2022.3.25)  4 MAY 2022 12:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2022.3.25)  4 MAY 2022 14:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -870,12 +870,12 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
 (Font)              scaled to size 10.95pt on input line 196.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 224.
- [1.1{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
-
-] Processing 'acks' comment.
+ Processing 'acks' comment.
 \openout3 = `comment.cut'.
 
- Comment 'acks' writing to comment.cut. Straight input of comment.cut. (./comment.cut) (./sample-sigconf-i13n.bbl) (/usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
+ Comment 'acks' writing to comment.cut. Straight input of comment.cut. (./comment.cut) (./sample-sigconf-i13n.bbl [1.1{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+]) (/usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 ) (/usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
@@ -886,27 +886,24 @@ Class acmart Warning: ACM reference format is mandatory
 (acmart)              Please add printacmref=true to the 
 (acmart)              \settopmatter command..
 
-
-Overfull \vbox (1.2135pt too high) has occurred while \output is active []
-
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 291.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 7.0pt on input line 291.
- [2.2] (./sample-sigconf-i13n.aux)
+[2.2] (./sample-sigconf-i13n.aux)
 Package rerunfilecheck Info: File `sample-sigconf-i13n.out' has not changed.
 (rerunfilecheck)             Checksum: 4C969FB2F852FE1B2A5A92C94DD20D53;1287.
  ) 
 Here is how much of TeX's memory you used:
- 22681 strings out of 478276
- 368754 string characters out of 5846504
- 753564 words of memory out of 5000000
+ 22684 strings out of 478276
+ 368823 string characters out of 5846504
+ 754490 words of memory out of 5000000
  40107 multiletter control sequences out of 15000+600000
- 566898 words of font info for 195 fonts, out of 8000000 for 9000
+ 567171 words of font info for 197 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 84i,11n,131p,1121b,491s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 84i,11n,131p,1121b,593s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertine/LinBiolinumT.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertine/LinBiolinumTB.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertine/LinLibertineT.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertine/LinLibertineTB.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertine/LinLibertineTI.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
-Output written on sample-sigconf-i13n.pdf (2 pages, 360656 bytes).
+Output written on sample-sigconf-i13n.pdf (2 pages, 360553 bytes).
 PDF statistics:
  118 PDF objects out of 1000 (max. 8388607)
  96 compressed objects within 1 object stream
