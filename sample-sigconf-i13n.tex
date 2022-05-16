@@ -97,6 +97,7 @@ language=german, language=spanish, language=english]{acmart}
 
 %%
 %% end of the preamble, start of the body of the document source.
+\input{solidity-highlighting.tex}	
 \begin{document}
 
 %%
@@ -229,7 +230,7 @@ research questions:
 In Section \ref{RelatedWorks}, we compare the actual papers and works regarding this topic. 
 Section \ref{Vulnerabilities} explains the objective of our analysis: Smart Contracts Vulnerabilities. 
 We give a taxonomy for the main vulnerabilities regarding Solidity. The classification of analysis tools 
-is shown in Section \ref{tools}. We discuss about the main strategies implemented by those.
+is shown in Section \ref{Tools}. We discuss about the main strategies implemented by those.
 Options
 \begin{itemize}
   \item In the last Section \ref{Conclusion} we try to define a guideline for detecting vulnerabilities. 
@@ -239,7 +240,6 @@ the tools work better.
 \end{itemize}
 
 
-
 \section{Releted Works}
 \label{RelatedWorks}
 \begin{itemize}
@@ -247,26 +247,178 @@ the tools work better.
   \item papers regarding comperison between tools
   \item papers of the tools that we want to have a Look
 \end{itemize}
+
 \citet{SystematicReviewVuln} 
 
 \section{Vulnerabilities in Solidity}
 \label{Vulnerabilities}
-\section{Security analysis tools}
-I create a table with the most common vulnerabilities like reentrancy, arithmetic operations, 
-DOS, self distruction. Post some codes.
-\label{tools}
-I explain the most typologies of tools.
-Tools with and without specification.
-Fuzzers, symbolic analysis, formal specification.
-Level of abstraction of the tools.
+An overview of classification of Vulnerabilities in Solidity is given in this section. 
+Classifications by scholars and community taxonomies are the strating point for drowing our own classification. 
+These knoledges are used for having our own classification; we depicted which ones are the most relevant 
+vulnerabilities for our work.
+The term vulnerability is used in a similar sense than is common in computer security. 
+It refers to a weakness or limitation of a smart contract that may result in
+security problems. 
+A vulnerability represents even the way the attacker can exploit the contract. 
+This includes locked or stolen
+resources, breaches of confidentiality or data integrity, and state
+changes in the environment of smart contracts that were not
+detected by developers or users, therefor they possibly be exploited by a malicious part.
+\subsection{Solidity Vulnerabilities and real-world examples}
+\label{sec:Vulenerabilities:Definifinition}
+
+\subsection{Vulnerabilities Classification and examples}
+\label{sec:Vulnerabilities:Classification}
+We summeries 10 different Vulnerabilities, providing a definition and a real-world example.
+\paragraph{Reentrancy} It is one of the vulnerabilities much more exploited during the recent year. 
+Many attacks occured and could steal great amount of many to vulnerable protocol. 
+A reentrancy attack can occur when a function makes an external call to another untrusted contract 
+before it resolves any effects. 
+A recursive call back to the original function is made by the attacker, before 
+the function could updated the state of the state of the variables. 
+The goal is repeating interactions that would have otherwise not run after the effects were resolved. 
+The function withdaw, line 8 to 16 \autoref{lst:Reentrancy}, implements this bug, because the balance of the user is updated after the call. 
+The attacker can run multiple the function withdaw without updating the balance, withrawing all the funds.
+\begin{lstlisting} [language=Solidity, caption={Reentrancy}, label={lst:Reentrancy}]
+contract EtherStore {
+    mapping(address => uint) public balances;
+    ...
+    //vulnerable function exploited by the attacker
+    function withdraw() public {
+        uint bal = balances[msg.sender];
+        require(bal > 0);
+
+        (bool sent, ) = msg.sender.call{value: bal}("");
+        require(sent, "Failed to send Ether");
+
+        balances[msg.sender] = 0;
+    }
+    ...
+}
+  
+\end{lstlisting}
+\paragraph{Unexpected Ether balance} An exploites can generated a Dos attack when the smart contract strictly assume a specific token balance. 
+It is always possible to forcibly send ether to a contract (without triggering its fallback function), using selfdestruct, or by mining to the account. 
+A common practice for detecting this bug is checking the invariant. 
+Smart contracts which manage ERC20token, currenciens built on the blockchain, keep track of the total supplay. 
+This is an example of invariant.
+
+\paragraph{Delegatecall to Untrusted Callee} The definition of delegatecall is given by \cite{SolDocs}. 
+Delegatecall is a special variant of a message call. 
+It is identical to a message call apart from the fact that the code at the target address is executed in the context of the calling contract and msg.sender and msg.value do not change their values.
+As a result of the context-preserving nature of DELEGATECALL, building vulnerability-free custom libraries isn't as easy as one might think. 
+The code in libraries themselves can be secure and vulnerability-free; however, when run within the context of another application new vulnerabilities can arise.
+An example is the use of a function call to send Ether, which could cause the execution of the
+fallback function of a malicious attacker. The consequence can be a reentrancy attack.
+\paragraph{Overflows \& Underflows} The Ethereum Virtual Machine (EVM) defineds fixed-size data types for integers. 
+An example is the identifier uint8, unsign integer over 8 bit, for variables means the variable can only store numbers in the range [0,255].
+The attacker can craft the input value of a vulnerable contract's function in order to force a specific operation. 
+In the contract TimeLock in \autoref{lst:ArithmeticOp}, an attacker could forge a parameter of the function function increaseLockTime, 
+in oder to set lockTime to 0 because of Overflows. So it can call withraw and passing the require at line 17.
+\begin{lstlisting}[language=Solidity,caption={Overflows \& Underflows},label={lst:ArithmeticOp}]
+contract TimeLock {
+  
+    mapping(address => uint) public balances;
+    mapping(address => uint) public lockTime;
+    
+    function deposit() public payable {
+        balances[msg.sender] += msg.value;
+        lockTime[msg.sender] = now + 1 weeks;
+    }
+    
+    function increaseLockTime(uint _secondsToIncrease) public {
+        lockTime[msg.sender] += _secondsToIncrease;
+    }
+    
+    function withdraw() public {
+        require(balances[msg.sender] > 0);
+        require(now > lockTime[msg.sender]);
+        msg.sender.transfer(balances[msg.sender]);
+        balances[msg.sender] = 0;
+    }
+}
+\end{lstlisting}
+\paragraph{Authentication \& Access Control Vulnerabilities} 
+\paragraph{Transaction Order Dependence}
+\paragraph{Block Timestamp Manipulation}
+\paragraph{Unchecked CALL Return Values}
+\paragraph{Race Conditions / Front Running}
+\paragraph{Denial Of Service (DOS)}{rthyj}
+\\
+The \autoref{tab:classification} gives a graphical overview of our classification, referring with the SWC Registry and DASP.
+
+\begin{center}
+\begin{table} 
+\caption{Our Classification of Vulnerabilities} 
+  \begin{tabular}{c c c} 
+    \hline
+      Vulnerability & DASP & SWC \\ [0.5ex] 
+
+    \hline\hline
+    Reentrancy & 1 & 107
+    
+  \end{tabular}
+  \label{tab:classification}
+\end{table}
+\end{center}
+
+\section{Methodologies implemented by security analysis tools}
+\label{MethodologiesForTools}
+\paragraph{Static analysis} refers to a class of methods that examine
+the source code or bytecode of a contract without execut-
+ing it. Most methods listed below are static.
+\paragraph{Dynamic analysis} means to observe a contract while
+executing (parts of) it in the original context.
+\paragraph{Disassembling} means to translate EVM bytecode into bet-
+ter readable assembly language, where machine operations
+and storage addresses are represented symbolically.
+\paragraph{Decompilation} is the process of transforming EVM byte-
+code to a more compact representation on a higher abstrac-
+tion level (like intermediate or Solidity code) to enhance
+the readability of the code or to ease data ﬂow analysis.
+\paragraph{Control ﬂow graph (CFG)} is a directed graph, where the
+basic blocks of a program serve as the nodes. An arc
+connects node A with node B if it is possible that block B
+gets executed immediately after block A. The arc may be
+labeled by the condition under which this path is chosen.
+\paragraph{Formal veriﬁcation} means veriﬁcation by formal methods
+with the aim of proving or disproving system properties
+rigorously. As a prerequisite, all components referenced
+by such a property as well as their behavior must have
+been speciﬁed formally. E.g., to verify properties of smart
+contracts on bytecode level formally, we need a formal
+speciﬁcation of the EVM and of the properties.
+\paragraph{Dynamic CFG} is similar to a CFG with the difference that
+arcs indicate the actual control ﬂow encountered during a
+particular execution of the code.
+\paragraph{Model checking} is a technique for automatically verifying
+correctness properties of ﬁnite-state systems. It requires a
+model of the system which is then checked against a given
+speciﬁcation.
+\paragraph{Call graph} is a directed graph, where the nodes are
+functions. There is an arc from node A to node B if
+function A calls function B.
+\paragraph{Abstract Syntax Tree (AST)}represents the syntactic struc-
+ture of Solidity code as a tree. It occurs as an intermediate
+product when compiling Solidity to bytecode. Often, it is
+better suited for analyzing Solidity code.
+\paragraph{Symbolic execution} means to execute code using symbols
+instead of concrete values for the variables. Operations
+on these symbols lead to algebraic terms, and conditional
+statements give rise to propositional formulas that char-
+acterize the branches. A particular part of the code is
+reachable if the conjunction of formulas on the path to this
+part is satisﬁable, which can be checked by SMT-solvers.
+
+\section{Security Analysis Tools}
+\label{Tools}
+
+
+\section{Real-World Case}
+\label{RealCase}
+
 \section{Conclusion}
 \label{Conclusion}
-I would propose 3 options:
-\begin{itemize}
-  \item propose a real case of analysis: I select a real wolrd exploit and I use the tools for analyses it.
-  \item give a guideline for developers, how they should behave. So having a look of vulenrabilities and using the cited tools.
-  \item an overview of the tools relating with the vulnerabilities.
-\end{itemize}
 
 
 \begin{acks}
