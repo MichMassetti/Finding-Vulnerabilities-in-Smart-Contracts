@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2022.3.25)  16 MAY 2022 15:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2022.3.25)  25 MAY 2022 16:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -896,38 +896,40 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 225.
 
+
+LaTeX Warning: Reference `Tools' on page 1 undefined on input line 233.
+
+
 Underfull \vbox (badness 3514) has occurred while \output is active []
 
  [1.1{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 273.
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 282.
-LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 282.
+(Font)              scaled to size 9.0pt on input line 271.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 283.
+LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 283.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/inconsolata/t1zi4.fd
 File: t1zi4.fd 2018/01/14 T1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 7.0pt on input line 282.
+(Font)              scaled to size 7.0pt on input line 283.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `zi4' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
-(Font)              scaled to size 7.0pt on input line 283.
+(Font)              scaled to size 7.0pt on input line 284.
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 9.0pt on input line 299.
+(Font)              scaled to size 9.0pt on input line 300.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 375.
+(Font)              scaled to size 9.0pt on input line 371.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 375.
- [2.2] Processing 'acks' comment.
+(Font)              scaled to size 7.0pt on input line 371.
+ [2.2] [3.3] Processing 'acks' comment.
 \openout3 = `comment.cut'.
 
- Comment 'acks' writing to comment.cut. Straight input of comment.cut. (./comment.cut) (./sample-sigconf-i13n.bbl
-LaTeX Info: Redefining \tempurl on input line 64.
-) (/usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
+ Comment 'acks' writing to comment.cut. Straight input of comment.cut. (./comment.cut) (./sample-sigconf-i13n.bbl [4.4]) (/usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 ) (/usr/local/texlive/2021/texmf-dist/tex/generic/stringenc/se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
@@ -938,23 +940,29 @@ Class acmart Warning: ACM reference format is mandatory
 (acmart)              Please add printacmref=true to the 
 (acmart)              \settopmatter command..
 
-[3.3] (./sample-sigconf-i13n.aux)
+
+Overfull \vbox (1.5385pt too high) has occurred while \output is active []
+
+ [5.5] (./sample-sigconf-i13n.aux)
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `sample-sigconf-i13n.out' has not changed.
-(rerunfilecheck)             Checksum: 80352CE7396D81FFE544AB284A1E1E1B;2394.
+(rerunfilecheck)             Checksum: B54EE8C67A9D423096CC6B02D4A7A2C3;1792.
  ) 
 Here is how much of TeX's memory you used:
- 24773 strings out of 478276
- 397564 string characters out of 5846504
- 913700 words of memory out of 5000000
- 42026 multiletter control sequences out of 15000+600000
- 581729 words of font info for 253 fonts, out of 8000000 for 9000
+ 24924 strings out of 478276
+ 399653 string characters out of 5846504
+ 1041373 words of memory out of 5000000
+ 42059 multiletter control sequences out of 15000+600000
+ 582736 words of font info for 259 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 84i,11n,131p,1152b,1526s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 84i,11n,131p,1152b,1673s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4b.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertine/LinBiolinumT.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertine/LinBiolinumTB.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertine/LinLibertineT.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertine/LinLibertineTB.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/libertine/LinLibertineTI.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/newtx/txsys.pfb>
-Output written on sample-sigconf-i13n.pdf (3 pages, 417814 bytes).
+Output written on sample-sigconf-i13n.pdf (5 pages, 439589 bytes).
 PDF statistics:
- 230 PDF objects out of 1000 (max. 8388607)
- 203 compressed objects within 3 object streams
- 84 named destinations out of 1000 (max. 500000)
- 61057 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 365 PDF objects out of 1000 (max. 8388607)
+ 335 compressed objects within 4 object streams
+ 193 named destinations out of 1000 (max. 500000)
+ 61041 words of extra memory for PDF output out of 61914 (max. 10000000)
 

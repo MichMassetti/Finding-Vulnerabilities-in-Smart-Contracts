@@ -260,16 +260,14 @@ The term vulnerability is used in a similar sense than is common in computer sec
 It refers to a weakness or limitation of a smart contract that may result in
 security problems. 
 A vulnerability represents even the way the attacker can exploit the contract. 
-This includes locked or stolen
-resources, breaches of confidentiality or data integrity, and state
+This includes locked or stolen resources, breaches of confidentiality or data integrity, and state
 changes in the environment of smart contracts that were not
 detected by developers or users, therefor they possibly be exploited by a malicious part.
-\subsection{Solidity Vulnerabilities and real-world examples}
-\label{sec:Vulenerabilities:Definifinition}
 
 \subsection{Vulnerabilities Classification and examples}
 \label{sec:Vulnerabilities:Classification}
-We summeries 10 different Vulnerabilities, providing a definition and a real-world example.
+We summeries 8 different Vulnerabilities, providing a definition and a real-world example.
+
 \paragraph{Reentrancy} It is one of the vulnerabilities much more exploited during the recent year. 
 Many attacks occured and could steal great amount of many to vulnerable protocol. 
 A reentrancy attack can occur when a function makes an external call to another untrusted contract 
@@ -277,8 +275,11 @@ before it resolves any effects.
 A recursive call back to the original function is made by the attacker, before 
 the function could updated the state of the state of the variables. 
 The goal is repeating interactions that would have otherwise not run after the effects were resolved. 
-The function withdaw, line 8 to 16 \autoref{lst:Reentrancy}, implements this bug, because the balance of the user is updated after the call. 
-The attacker can run multiple the function withdaw without updating the balance, withrawing all the funds.
+The function withdraw, line 8 to 16 \autoref{lst:Reentrancy}, implements this bug, because the balance of the user is updated after the external call. 
+The attacker, with the usage of a malicious smart contract, can call again the vulnerable function. 
+It is run multiple time, without updating the balance, withrawing all the funds. There are several countermeasures for this type of bug: 
+semaphores logic can be implemented with the modifiers, the update of the variable can be moved before the external call. 
+The external call can be safe if the developer checks the amount of gas used, in order to avoid an attacker can modify the control flow. 
 \begin{lstlisting} [language=Solidity, caption={Reentrancy}, label={lst:Reentrancy}]
 contract EtherStore {
     mapping(address => uint) public balances;
@@ -297,24 +298,52 @@ contract EtherStore {
 }
   
 \end{lstlisting}
-\paragraph{Unexpected Ether balance} An exploites can generated a Dos attack when the smart contract strictly assume a specific token balance. 
-It is always possible to forcibly send ether to a contract (without triggering its fallback function), using selfdestruct, or by mining to the account. 
-A common practice for detecting this bug is checking the invariant. 
-Smart contracts which manage ERC20token, currenciens built on the blockchain, keep track of the total supplay. 
-This is an example of invariant.
 
-\paragraph{Delegatecall to Untrusted Callee} The definition of delegatecall is given by \cite{SolDocs}. 
-Delegatecall is a special variant of a message call. 
-It is identical to a message call apart from the fact that the code at the target address is executed in the context of the calling contract and msg.sender and msg.value do not change their values.
-As a result of the context-preserving nature of DELEGATECALL, building vulnerability-free custom libraries isn't as easy as one might think. 
-The code in libraries themselves can be secure and vulnerability-free; however, when run within the context of another application new vulnerabilities can arise.
-An example is the use of a function call to send Ether, which could cause the execution of the
-fallback function of a malicious attacker. The consequence can be a reentrancy attack.
+\paragraph{Unexpected Ether balance} An exploites can generated a Dos attack when the smart contract strictly assume a specific token balance. 
+It is always possible to forcibly send ether to a contract (without triggering its fallback function), 
+using selfdestruct, or by mining to the account. Smart Contracts which rely on code execution for every ether sent to the contract can be vulnerable to attacks where ether is sent.
+In the provided example (\autoref{lst:UnexpectedEther}), the function play() has a require at line 5, which checks no players can play when the balance 
+reaches the predefined threshold. The function claimReward(), allows the user to withdraw, when the balance reaches the threshold. 
+An attacker can send ether to this contract, for manipulating its balance. If it was greater than the threshold, the functions would always 
+revert because of the require. As a consequence, no one could withdraw the funds and call the function play().
+\begin{lstlisting} [language=Solidity, caption={Unexpected Ether}, label={lst:UnexpectedEther}]
+  ...
+  function play() public payable {
+        require(msg.value == 0.5 ether); // each play is 0.5 ether
+        uint currentBalance = this.balance + msg.value;
+        // ensure no players after the game as finished
+        require(currentBalance <= finalMileStone);
+        // if at a milestone credit the players account
+        if (currentBalance == payoutMileStone1) {
+            redeemableEther[msg.sender] += mileStone1Reward;
+        }
+        else if (currentBalance == payoutMileStone2) {
+            redeemableEther[msg.sender] += mileStone2Reward;
+        }
+        else if (currentBalance == finalMileStone ) {
+            redeemableEther[msg.sender] += finalReward;
+        }
+        return;
+  }
+  function claimReward() public {
+    // ensure the game is complete
+    require(this.balance == finalMileStone);
+    // ensure there is a reward to give
+    require(redeemableEther[msg.sender] > 0); 
+    redeemableEther[msg.sender] = 0;
+    msg.sender.transfer(redeemableEther[msg.sender]);
+  }
+  ...
+\end{lstlisting}
+
 \paragraph{Overflows \& Underflows} The Ethereum Virtual Machine (EVM) defineds fixed-size data types for integers. 
 An example is the identifier uint8, unsign integer over 8 bit, for variables means the variable can only store numbers in the range [0,255].
 The attacker can craft the input value of a vulnerable contract's function in order to force a specific operation. 
 In the contract TimeLock in \autoref{lst:ArithmeticOp}, an attacker could forge a parameter of the function function increaseLockTime, 
 in oder to set lockTime to 0 because of Overflows. So it can call withraw and passing the require at line 17.
+The most common way for solving these issues is to build or use mathematical libraries which replace the standard math operators. 
+\href{https://www.openzeppelin.com/}{OppenZepplin} is a company, dealing with Blockchain technologies. It has done a great job in building and auditing secure libraries which can be leveraged by the Ethereum community.
+SafeMath library can be found in most of the deployed smart contracts.
 \begin{lstlisting}[language=Solidity,caption={Overflows \& Underflows},label={lst:ArithmeticOp}]
 contract TimeLock {
   
@@ -338,32 +367,177 @@ contract TimeLock {
     }
 }
 \end{lstlisting}
-\paragraph{Authentication \& Access Control Vulnerabilities} 
-\paragraph{Transaction Order Dependence}
-\paragraph{Block Timestamp Manipulation}
-\paragraph{Unchecked CALL Return Values}
-\paragraph{Race Conditions / Front Running}
-\paragraph{Denial Of Service (DOS)}{rthyj}
-\\
-The \autoref{tab:classification} gives a graphical overview of our classification, referring with the SWC Registry and DASP.
 
-\begin{center}
-\begin{table} 
-\caption{Our Classification of Vulnerabilities} 
-  \begin{tabular}{c c c} 
-    \hline
-      Vulnerability & DASP & SWC \\ [0.5ex] 
+\paragraph{Block Timestamp Manipulation} ispart of the cathegory of vulnerabilities that can be exploited by corrupt miners. 
+A miner cac forge the timestamp by a few seconds, for obtaing benefits. 
+The timestamp dependence vulnerability occurs from a flawed comprehension of timekeeping. It enables the Ethereum
+network to be detached from the synchronized global clock. 
+The block timestamp can be used as entropy for random numbers, locking funds for periods of time and various state-changing 
+conditional statements that are time-dependent. Since the smart contract permits miners to put up a
+timestamp within 30 seconds of block validation, this gives a miner more opportunity for exploitation.
+\autoref{lst:BlockTimeStamp} shows a function (a fallback) which implements the logic of a lottery. The users can send ether to this contract, which 
+accepts just one transaction per block. If the block is a multiple of 15, the user receives all the funds. This function is based on the timestamp of the balck, 
+a malicious miner could adjust the timestamp for getting the win.
+\begin{lstlisting}[language=Solidity,caption={Block Timestamp},label={lst:BlockTimeStamp}]
+  ...  
+  // fallback function used to make a bet
+  function () public payable {
+        require(msg.value == 10 ether); // must send 10 ether to play
+        require(now != pastBlockTime); // only 1 transaction per block
+        pastBlockTime = now;
+        if(now % 15 == 0) { // winner
+            msg.sender.transfer(this.balance);
+        }
+  }
+  ...
+\end{lstlisting}
 
-    \hline\hline
-    Reentrancy & 1 & 107
+\paragraph{Call to the unknown} The smart contracts workflow might be manipulated by 
+the invocation of third party or untrusted code. The callee can implemnt malicous code which can be run and 
+modify the normal execution of the calleer. For an untrusted, malicious
+party, it might be possible to inject code in a way, that can inﬂuence the contracts behavior unexpectedly
+and maliciously. A common case is the reentrancy, which can involve the Solidity functions .call(), .send() and .transfer(). 
+Mistyped direct function calls or using the wrong function signature are classified as this type of vulnerability. 
+The contract CallerContract in \autoref{lst:CallToUnknown} is an example of this vulnerability. An attacker could call the function caller, passing 
+as parameter the address of a malicious contract, which implement a malicious fallback. In that case the fallback would be triggered, bacause the contract 
+does not have any function with that name.
+
+\begin{lstlisting}[language=Solidity,caption={Call to the unknown},label={lst:CallToUnknown}]
+cotract CalleeCotract{ 
+  fucntion toBeCalled(){
+    //do some operations
+  }
+}
+
+contract CallerContract{
+  functionn caller(address a){
+    toBeCalled(a).toBeCalled();
+  }
+}
+
+contract Malicious{
+  fallback(){
+    //the attack
+  }
+}
+\end{lstlisting}
+
+\paragraph{Transaction Ordering Dependence} Miners are responsable for the creation and certification of 
+the blocks on the blockchain. Inside those, the transactions are stores, but their order is not guaranteed by 
+design and the miners can easily manipulate that. Consequently, this makes the smart contracts vulnerable to the transaction
+order dependency, it can be classified as a type of race condition. The vulenrability relies on smart contracs critical decision 
+are based on the order of transaction. Moreover, if two dependent transactions are invoked by the same contract then ordering of transactions must affect the states of blockchain. 
+So we can have a case of race condition, even with a miner without malicious aims.
+
+The smart contract MarketPlace(\autoref{lst:TOD}) implements the logic of a market place. The users can buy an arbitrary amount of stock and the 
+owner can set the price. In this case the variable price is influenced by two functions. If the owner of the contract would be a miner, it could 
+manipulate the order of transaction. The miner-seller can inﬂuence the transaction orders and update the price after the buy request was 
+sent, but before it is processed, eﬀectively increasing the anticipated price for the buyer. The seller can just modify the price, while a user is buying and it can effect its action.
+
+\begin{lstlisting}[language=Solidity,caption={Transaction Ordering Dependence},label={lst:TOD}]
+contract MarketPlace {
+  uint256 price;
+  uint256 stock;
+  address owner;
+  constructor() {
+    owner= msg.sender;
+
+  }
+  modifier onlyOwner(){
+    require(msg.sender==owner);
+    _;
+  }
+  function updatePrice(uint256) onlyOwner {
+
+  }
+  function buy(uint256 amount){
+    require(stock>=amount);
+    require (msg.value >=amount*price);
+    stock-=quant;
+  }
+}
+\end{lstlisting}
+
+\paragraph{Denial Of Service (DOS)} Denial of service attack is a cathegory of attack, which involeves all those one which have the aim to 
+disturb the functionality or stop the execution of the target system. In the context of smart contracts, we can provide some example of this cathegory, 
+which involve multiple strategies for breaking the normal flow execution of the program.
+
+\autoref{lst:DOS} shows a simpliefied contract for auction. The function refundUsers() has the responsibility to refund all the bidder. 
+The function contains a loop, so it can get the amount of the bid of the user and refund it. The bug relies on the the require inside the loop. If the transaction returns false, 
+the require fails, so all the transactions are reverted, consequently all the previous refunds are reverted. A malicious contract can be implemented for taking part to the function, but 
+that one reverts every time it receives ether. In this way, the function refundUsers() would always revert and no users can be refunded.
+
+\begin{lstlisting}[language=Solidity,caption={Denial of Service/Out of Gas},label={lst:DOS}]
+contract Auction {
+  mapping (address=>uint256) allBids;
+  mapping (uint256=>address) users;
+  uint256 nUsers;
+  uint256 lastrefund;
+  ... 
+  function refundUsers() {
     
-  \end{tabular}
-  \label{tab:classification}
-\end{table}
-\end{center}
+    for(uint256 i = lastrefund; i<nUsers;i++){
+      address user=users[i];
+      uint256 amount= allBids[user];
+      (bool sent, )= user.call{value: amount}("");
+      require(sent);
+    }
 
-\section{Methodologies implemented by security analysis tools}
+  }
+  ... 
+}
+\end{lstlisting}
+
+
+\paragraph{Out of Gas} In Ethereum, we have to pay for each computational operation, measured in the unit called gas. 
+In the Ethereum documentation, gas is defined as follows: “Gas refers to the unit that measures the amount of computational effort required to execute specific operations on the Ethereum network. 
+Since each Ethereum transaction requires computational resources to execute, each transaction requires a fee. 
+Gas refers to the fee required to conduct a transaction on Ethereum successfully.” 
+
+The sender pays the transaction fee, previously specifying the gas limit, If the payed amount exceeds the fee, it will receive a refund when the transaction finishes. 
+If the actual execution cost of the transaction exceeds the gas limit, the transaction will fail with an out of gas error. 
+We used \autoref{lst:DOS} for showing an example of DOS, but it implements an out of gas vulnerability too. 
+The amount of gas depends on the number of the for loop's iteration. If the number of iteration grows too much, the function would always revert. A malicious attacker can 
+manipulate the number of iterations, using a great number of wallet for the bid.
+
+\paragraph{Unchecked CALL/SEND Return Values} There a number of ways of performing external calls in solidity. The transfer() method is the most common way for exchanging ether between smart contracts. 
+It reverts if the something goes wrong and function does not succeed. However, the send() and call() function can also be used and, for more versatile external call. 
+These functions return a boolean indicating if the call succeeded or failed.  A common bug relies on the return value is not checked, rather the developer expects a revert to occur. 
+
+The user can call the function withdrawEmergency()  at line 4, \autoref{lst:UncheckedReturn}, for withdrawing all its funds. The function updates the value of the mapping balances, setting 
+the balance of the user to zero. If the function does not succeed, it does not revert. 
+The funds of the user would be stacked insed the contract. Moreover the amount of ether in the contract is miscomputed.
+
+
+\begin{lstlisting}[language=Solidity,caption={Unchecked CALL/SEND Return Values},label={lst:UncheckedReturn}]
+contract Bank{
+  mapping (address=> uint256) balances;
+  ... 
+  function withdrawEmergency() public {
+    require(balances[msg.sender] > 0);
+    uint256 amount= balances[msg.sender];
+    balances[msg.sender] = 0;
+    etherLeft -= _amount;
+    msg.sender.send(amount);
+  }
+  ...
+}
+
+\end{lstlisting}
+
+\section{Methods for finding Vulnerabilities}
 \label{MethodologiesForTools}
+
+
+
+
+
+
+
+
+
+
+
 \paragraph{Static analysis} refers to a class of methods that examine
 the source code or bytecode of a contract without execut-
 ing it. Most methods listed below are static.
@@ -409,10 +583,6 @@ statements give rise to propositional formulas that char-
 acterize the branches. A particular part of the code is
 reachable if the conjunction of formulas on the path to this
 part is satisﬁable, which can be checked by SMT-solvers.
-
-\section{Security Analysis Tools}
-\label{Tools}
-
 
 \section{Real-World Case}
 \label{RealCase}

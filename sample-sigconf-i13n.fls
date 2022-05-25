@@ -1227,6 +1227,8 @@ INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/libertine/LinLibertine
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/vf/public/newtx/ntxsy.vf
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/newtx/txsys.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/newtx/txex-bar.tfm
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/vf/public/libertine/LinLibertineTB-tlf-t1.vf
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/libertine/LinLibertineTB-tlf-t1--base.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/libertine/LinLibertineTI-tlf-t1.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/inconsolata/t1zi4.fd
 INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/inconsolata/t1zi4.fd
@@ -1241,8 +1243,6 @@ INPUT /usr/local/texlive/2021/texmf-dist/fonts/vf/public/libertine/LinBiolinumT-
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/libertine/LinBiolinumT-tlf-t1--base.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/vf/public/libertine/LinLibertineTI-tlf-t1.vf
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/libertine/LinLibertineTI-tlf-t1--base.tfm
-INPUT /usr/local/texlive/2021/texmf-dist/fonts/vf/public/libertine/LinLibertineTB-tlf-t1.vf
-INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/libertine/LinLibertineTB-tlf-t1--base.tfm
 OUTPUT comment.cut
 INPUT ./comment.cut
 INPUT comment.cut
