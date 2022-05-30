@@ -35,6 +35,7 @@
 %%
 %%
 %% The first command in your LaTeX source must be the \documentclass command.
+
 \documentclass[a4paper,sigconf, language=french,
 language=german, language=spanish, language=english]{acmart}
 
@@ -220,7 +221,7 @@ so these would work differently according to the object of the analysis.
 Among the many aspects of smart contract, our systematic
 literature review focuses on studies related to vulnerabilities and 
 analysis tools for their detection. We will try to give an answer to the following 
-research questions:
+research questions:f
 \begin{itemize}
     \item Which are the main vulnerabilities in Smart Contracts?
     \item Which methodologies are implemented by analysis tools?
@@ -230,25 +231,53 @@ research questions:
 In Section \ref{RelatedWorks}, we compare the actual papers and works regarding this topic. 
 Section \ref{Vulnerabilities} explains the objective of our analysis: Smart Contracts Vulnerabilities. 
 We give a taxonomy for the main vulnerabilities regarding Solidity. The classification of analysis tools 
-is shown in Section \ref{Tools}. We discuss about the main strategies implemented by those.
-Options
-\begin{itemize}
-  \item In the last Section \ref{Conclusion} we try to define a guideline for detecting vulnerabilities. 
-  \item In the last Section \ref{Conclusion} we give an overview, defining the suitable cases which 
-the tools work better.
-  \item In the last section \ref{Conclusion} we propose a real case.
-\end{itemize}
+is shown in Section \ref{MethodologiesForTools}. We discuss about the main strategies implemented by those.
+In the last Section \ref{Conclusion} we adopt the selected tools on the studied Vulnerability, for uderstandig which one is 
+more suitable in wich context. 
 
 
 \section{Releted Works}
 \label{RelatedWorks}
-\begin{itemize}
-  \item Papers about vulenrabilities detection for defing a taxonomy
-  \item papers regarding comperison between tools
-  \item papers of the tools that we want to have a Look
-\end{itemize}
+Our work is addressed to define the most common vulnerabilities and methodologies for finding those.
+The first step was getting in touch with research works which deals with topics as vulenrabilities and analysis tools. 
 
-\citet{SystematicReviewVuln} 
+We selected the analaysis tools strating from the reading of surveys and papers as \cite{SurvTools}, \cite{Thesis}, \cite{AutomaticTools}, \cite{AttacksAndProtection}, \cite{ToolsAndVuln}. 
+Those deal with a great amount of tools, defining their characteristics and the goal is the comparison between those based on selected benchmarks. 
+After the definition, we deepen iur knoledge with their own paper 
+(\cite{Slither} \cite{Echidna} \cite{Manticore} \cite{SmartTest} \cite{Oyente}).
+The two most used database for smart cotract Vulnerabilities are \cite{SWC} and \cite{DASP10}. Those are run and updated by the community. 
+
+
+
+
+\begin{table*}
+  \caption{Collection of Vulnerabilities}
+  \begin{tabular}{ |p{5cm}||p{5cm}|p{3cm}| p{3cm} | }
+  \hline
+  \multicolumn{4}{|c|}{Vulnerabilities} \\
+  \hline
+  Name  & DASP10 & SWC \\
+  \hline
+  Reentrancy  & DASP-1 & SWC-107 \\
+  \hline
+  Unexpected Ether balance  & & SWC-132  \\
+  \hline
+  Overflows \& Underflows  & DASP-3 & SWC-101 \\
+  \hline
+  Block Timestamp Manipulation  & DASP-8 & \\
+  \hline
+  Call to the unknown  & DASP-10 & SWC-112 \\
+  \hline
+  Transaction Ordering Dependence  & DASP-7  & SWC-114 \\
+  \hline
+  Denial Of Service (DOS)  & DASP-5 &  SWC-113\\
+  \hline
+  Out of Gas  & DASP-5 & SWC-128 \\
+  \hline
+  Unchecked CALL/SEND Return Values  & DASP-4 & SWC-104\\
+  \hline
+  \end{tabular}
+\end{table*}
 
 \section{Vulnerabilities in Solidity}
 \label{Vulnerabilities}
@@ -266,7 +295,7 @@ detected by developers or users, therefor they possibly be exploited by a malici
 
 \subsection{Vulnerabilities Classification and examples}
 \label{sec:Vulnerabilities:Classification}
-We summeries 8 different Vulnerabilities, providing a definition and a real-world example.
+We summeries different Vulnerabilities, providing a definition and a real-world example.
 
 \paragraph{Reentrancy} It is one of the vulnerabilities much more exploited during the recent year. 
 Many attacks occured and could steal great amount of many to vulnerable protocol. 
@@ -527,70 +556,148 @@ contract Bank{
 
 \section{Methods for finding Vulnerabilities}
 \label{MethodologiesForTools}
+This section is addressed to present the most effective and common tools with their strategies in Ethereum smart contract context. 
+We classify the tools in 2 big cathegories: with and without specification. 
+In the firt case, tools need specifications for running. On the other hand,  the former group 
+deals with those which can give a result from the solidity file.
 
 
 
+\subsection{Tools without Specifications} 
+\begin{table*}
+  \caption{Tools without Specifications}
+  \label{tab:ToolsWithoutSpec}
+  \begin{tabular}{ |p{5cm}|p{5cm}|  }
+  \hline
+  \multicolumn{2}{|c|}{Tools Without Specifications } \\
+  \hline
+  Name & Keywords\\
+  \hline
+  Slither & Static Analysis Scanner\\
+  \hline
+  Mythril & Symbolic execution \\
+  \hline
+  SmartTest & Symbolic execution\\
+  \hline
+  Oyente  & Symbolic execution \\
+  \hline
+ \end{tabular}
+\end{table*}
+ 
 
+\paragraph{Slither} Slither is a smart contract code static analysis framework.
+It has rapid and reliable security detection algorithms for potential bugs.
+Slither can be used for automatic vulnerability identification, automated optimization detection, code interpretation, and assisted code review, among other things.
+For the security analysis, a multi-stage approach is started.
+From the contract source code, the Solidity compiler generates a Solidity Abstract Syntax Tree (AST), which is utilised as an input to Slither.
+Slither gathers important contract information such as the inheritance graph, Control-flow graph (CFG), and so on during the early stage.
+The next stage includes converting the complete code to SlithIR.
+The code analysis task is then completed by computing a list of pre-defined analyses in the next stage. 
 
+\paragraph{Mythril} Mythril is a security tool that examines Solidity-based smart contracts.
+In order to discover code flaws, Mythril, an open-source programme, employs the symbolic execution technique.
+Executing smart contract bytecode in a custom constructed EVM is used to look for security issues.
+To complete its security study, Mythril goes through four major stages.
+When a programme defect is detected, the input transactions are examined to establish the cause.
+This security strategy aids in determining the root cause of a program's vulnerability as well as mitigating exploitation.
+Mythril can discover problems in a contract's source code if a developer provides it. 
 
+\paragraph{SmartTest}SmartTest is an Ethereum smart contract safety analyzer.
+For effectively detecting susceptible transaction sequences, it uses a symbolic execution method.
+The tool to detect transaction sequences, showing the weaknesses of the examined smart contract, is the project's core problem.
+As a result, bugs are discovered as the source of multiple transaction interaction.
+SmartTest's goal is to automatically deliver vulnerable transaction sequences that demonstrate the smart contract's flaws. 
+The fundamental idea is to leverage known vulnerable transaction sequences to develop a statistical model that can be used to drive symbolic execution 
+toward more successfully discovering unknown vulnerabilities.
+Statistical language models direct symbolic execution, allowing it to select transacion sequences that are likely to reveal vulnerabilities.
+The first step in this strategy is to perform unguided symbolic execution on existing vulnerable contracts, followed by learning a probability 
+distribution over vulnerable transaction sequences. The detection of the following six types of security-critical vulnerabilities are supported
+by the tool: integer over/underflow, assertion violation, division-by-zero, ERC20 standard
+violation, Ether-leaking vulnerability (e.g., unauthorized access to transfer), and suicidal
+vulnerability (e.g., unauthorized access to selfdestruct). In the paper, the authors focus on
+just those, without considering vulnerabilities that require analysis of the interaction of
+multiple contracts to demonstrate the flaws (e.g., reentrancy).
 
+\paragraph{Oyente}Oyente is a symbolic execution tool for finding smart contract security flaws.
+Oyente analyses Ethereum smart contracts for security flaws that could lead to possible attacks.
+Oyente not only finds dangerous bugs, but it also looks at every possible execution path.
+In an experiment conducted by Oyente on 19,366 smart contracts, 8,833 of them were found to be susceptible.
+The symbolic execution approach uses a mathematical formula to reflect the characteristics of an execution path.
+Oyente compares the new formula to formulae that contain common bugs to see if both formulas are valid at the same time. 
 
+\subsection {Tools with Specifications}
 
+\begin{table*}
+  \caption{Tools With Specifications}
+  \label{TollsWithSpec}
+  \begin{tabular}{ |p{5cm}|p{5cm}|  }
+    \hline
+    \multicolumn{2}{|c|}{Tools With Specifications }\\
+    \hline
+    Name & Keywords \\
+    \hline 
+    Echidna  & Fuzzing, security properties and assertion analysis\\
+    \hline
+    Manticore  & Symbolic Execution, security properties analysis \\
+    \hline
+    SolcVerify & Formal Verification 
+  \end{tabular}
+\end{table*}
+\paragraph{Echidna} Echidna was created by the same people who created Slither.
+It's a sophisticated fuzzer for EVM that finds problems in Solidity code.
+To conduct deep analysis for defects, this tool just requires Solidity propositions and provides a simple user interface (UI) to simplify its results.
+Echidna tries several combinations of inputs until it succeeds in breaking the given property.
+Echidna has a few characteristics with Manticore, allowing it to function at the EVM level.
+It can also be merged to continuous integration (CI) in order to detect code issues while development is ongoing. 
 
+\paragraph{Manticore} Manticore is a Solidity audit tool that analyzes smart contracts symbolically.
+Manti-key core's functions include tracing inputs that terminate a program, logging instruction-level implementation, and offering Python API access to its analysis engine.
+It features a capability called dynamic symbolic execution that examines binaries and Ethereum smart contracts.
+The Core Engine, Native Execution Modules, and Ethereum Execution Modules are the three main components of Manticore's architecture.
+Secondary features include the Satisfiability Modulo Theories (SMT-LIB) module, Event System, and API. 
+In our work, we are using manticore verifier, which deals with the proof of properties given by the developer. 
+The properties are enbedded in the code, written as a solidity function.
 
-\paragraph{Static analysis} refers to a class of methods that examine
-the source code or bytecode of a contract without execut-
-ing it. Most methods listed below are static.
-\paragraph{Dynamic analysis} means to observe a contract while
-executing (parts of) it in the original context.
-\paragraph{Disassembling} means to translate EVM bytecode into bet-
-ter readable assembly language, where machine operations
-and storage addresses are represented symbolically.
-\paragraph{Decompilation} is the process of transforming EVM byte-
-code to a more compact representation on a higher abstrac-
-tion level (like intermediate or Solidity code) to enhance
-the readability of the code or to ease data ﬂow analysis.
-\paragraph{Control ﬂow graph (CFG)} is a directed graph, where the
-basic blocks of a program serve as the nodes. An arc
-connects node A with node B if it is possible that block B
-gets executed immediately after block A. The arc may be
-labeled by the condition under which this path is chosen.
-\paragraph{Formal veriﬁcation} means veriﬁcation by formal methods
-with the aim of proving or disproving system properties
-rigorously. As a prerequisite, all components referenced
-by such a property as well as their behavior must have
-been speciﬁed formally. E.g., to verify properties of smart
-contracts on bytecode level formally, we need a formal
-speciﬁcation of the EVM and of the properties.
-\paragraph{Dynamic CFG} is similar to a CFG with the difference that
-arcs indicate the actual control ﬂow encountered during a
-particular execution of the code.
-\paragraph{Model checking} is a technique for automatically verifying
-correctness properties of ﬁnite-state systems. It requires a
-model of the system which is then checked against a given
-speciﬁcation.
-\paragraph{Call graph} is a directed graph, where the nodes are
-functions. There is an arc from node A to node B if
-function A calls function B.
-\paragraph{Abstract Syntax Tree (AST)}represents the syntactic struc-
-ture of Solidity code as a tree. It occurs as an intermediate
-product when compiling Solidity to bytecode. Often, it is
-better suited for analyzing Solidity code.
-\paragraph{Symbolic execution} means to execute code using symbols
-instead of concrete values for the variables. Operations
-on these symbols lead to algebraic terms, and conditional
-statements give rise to propositional formulas that char-
-acterize the branches. A particular part of the code is
-reachable if the conjunction of formulas on the path to this
-part is satisﬁable, which can be checked by SMT-solvers.
-
-\section{Real-World Case}
-\label{RealCase}
-
+\paragraph{SolcVerify} SolcVerify is an Ethereum smart contract source-level verification tool.
+It accepts Solidity smart contracts and uses modular programme analysis to discharge verification conditions.
+Because it is built on top of the Solidity compiler, it can reason at the contract source code level.
+Solc-verify can reason about high-level contract properties while reliably modelling low-level language semantics as a result of this.
+It is a compiler extension for the Solidity language.
+It receives a collection of Solidity contracts, including specification annotations, and discharges verification conditions using the Boogie verifier and SMT solvers.
+It converts annotated contracts to Boogie Intermediate Verification Language (BIVL)
+ 
 \section{Conclusion}
 \label{Conclusion}
 
-
+\begin{table*}
+  \caption{Results}
+  \label{Results}
+  \begin{tabular}{ |p{2cm}||p{1cm}|p{2cm}| p{2cm} |p{1cm}|p{2cm}|p{2cm}| p{1cm}|p{2cm}}
+  \hline
+  \multicolumn{7}{|c|}{Results of Analysis} \\
+  \hline
+  Vulenrablity & Slither & Oyente & SmartTest & Mythril & Echidna & Manticore & SolcVerify \\
+  \hline
+  Reentrancy & &&&&&&\\
+  \hline
+  Unexpected Ether balance && &&&&& \\
+  \hline
+  Overflows \& Underflows & &&&&&& \\
+  \hline
+  Block Timestamp Manipulation && &&&&& \\
+  \hline
+  Call to the unknown & &&&&&&\\
+  \hline
+  Transaction Ordering Dependence & &&&&&& \\
+  \hline
+  Denial Of Service (DOS) & &&&&&&\\
+  \hline
+  Out of Gas & &&&&&& \\
+  \hline
+  Unchecked CALL/SEND Return Values& &&&&&&\\
+  \hline
+  \end{tabular}
+\end{table*}
 \begin{acks}
 
 \end{acks}
