@@ -221,13 +221,14 @@ so these would work differently according to the object of the analysis.
 Among the many aspects of smart contract, our systematic
 literature review focuses on studies related to vulnerabilities and 
 analysis tools for their detection. We will try to give an answer to the following 
-research questions:f
+research questions:
 \begin{itemize}
     \item Which are the main vulnerabilities in Smart Contracts?
-    \item Which methodologies are implemented by analysis tools?
-    \item How should we behave for the detection of Vulnerabilities?
+    \item Which methodologies are implemented by analysis tools and which are the most used ones?
+    \item Which is the behaviour of the tools with a given Vulnerability?
 \end{itemize}
-
+Section \ref{Backgroud} gives an overview of blockchain and smart contracts technology, the execution environment and model. 
+In our work we focus on the Ethereum platform, however many concepts can be adapeted in multiple blockchain EVM (Ethereum Virtual Machine) compatible.
 In Section \ref{RelatedWorks}, we compare the actual papers and works regarding this topic. 
 Section \ref{Vulnerabilities} explains the objective of our analysis: Smart Contracts Vulnerabilities. 
 We give a taxonomy for the main vulnerabilities regarding Solidity. The classification of analysis tools 
@@ -236,18 +237,102 @@ In the last Section \ref{Conclusion} we adopt the selected tools on the studied 
 more suitable in wich context. 
 
 
+
+
 \section{Releted Works}
 \label{RelatedWorks}
 Our work is addressed to define the most common vulnerabilities and methodologies for finding those.
-The first step was getting in touch with research works which deals with topics as vulenrabilities and analysis tools. 
-
+The first step was getting in touch with research works which deals with topics as vulenrabilities and analysis tools in a blockchain context. 
+For having a better comprehension of the matters, we collect informations about the basis of blockchain technology and secuirty terminology. \cite{ETHfoundation} provides an overview 
+of Ethereum environment. 
 We selected the analaysis tools strating from the reading of surveys and papers as \cite{SurvTools}, \cite{Thesis}, \cite{AutomaticTools}, \cite{AttacksAndProtection}, \cite{ToolsAndVuln}. 
 Those deal with a great amount of tools, defining their characteristics and the goal is the comparison between those based on selected benchmarks. 
 After the definition, we deepen iur knoledge with their own paper 
 (\cite{Slither} \cite{Echidna} \cite{Manticore} \cite{SmartTest} \cite{Oyente}).
 The two most used database for smart cotract Vulnerabilities are \cite{SWC} and \cite{DASP10}. Those are run and updated by the community. 
 
+\section{Background}
+\label{Background}
 
+\subsection{Blockchain}
+Blockchain is basically a shared ledger that holds transactions and information in a decentralised peer-to-peer network. A blockchain acts as a database, storing information in a digital format. 
+This technology is best known for their vital role in cryptocurrency systems, such as Bitcoin, to maintain a secure and decentralized record of transactions. 
+The innovation is that it ensures the truthfulness and security of  data records and creates trust without the need for a trusted third party.
+
+It acts like a database, however it organises data into units called blocks, each of which contains a collection of data.
+Blocks have specific storage capacities, and when they are full, they are closed and linked to the preceding block, producing a data chain known as the blockchain.
+All additional information added after that newly added block is compiled into a new block, which is then added to the chain after it is filled.  
+
+Each computer in the network must agree on each new block and on the entire chain. 
+These calculators are called "nodes". Those ensure that everyone who interacts with the blockchain has the same data. 
+New blocks are broadcast to network nodes, which track and verify those, moreove the state of the blockchain is updated for everyone.
+To achieve this distributed agreement, blockchains need a consensus mechanism. 
+
+The purpose is to allow digital information to be recorded and distributed, but not edited. 
+In this way, an immutable ledger or record of transactions is genetated, thus that cannot be modified, deleted, or destroyed. 
+This is why blockchain is also known as Distributed Ledger Technology (DLT). 
+
+
+\subsection{Etherum Enviroment}
+
+Ethereum is a blockchain-based global decentralised software platform. 
+Anyone can use Ethereum to construct any secure digital technology they can imagine.
+It has a token built for usage on the blockchain network, but it may also be used to pay for work done on the blockchain by participants. 
+It is built to be decentralised, scalable, programmable, and secure. It is the blockchain of choice for developers and businesses who are building technologies on top of it to transform numerous sectors and our everyday lives.
+It natively supports smart contracts, which are the essential tool behind decentralized applications. Regarding the develpoment and interaction, Ethereum is the leading in this sector. 
+Moreover, during the last years, multiple chains have been build on top of it, Ethereum has became the "internet of blockchain".
+
+In the Ethereum universe, there is a single, canonical computer (known as the Ethereum Virtual Machine, or EVM) whose state everyone on the Ethereum network agrees on. 
+Every Ethereum node (participant in the Ethereum network) saves a copy of this computer's current state. 
+Whatever participant can also broadcast a request for this computer to conduct any computation they choose. 
+When a request like this is broadcast, other network members verify, validate, and carry out (or "execute") the computation. 
+The EVM's state changes as a result of this execution, which is committed and propagated throughout the network. The consensus algorithm, which ensure the correct system's behaviour, is called "proof of works". 
+It involves that anyone, who wishes to add additional bricks to the chain, must first solve a complex challenge that takes a lot of processing resources.
+Solving the puzzle "proves" that you used computing resources to do the "job."
+Mining is the process of doing so. It is usually done by trial and error, but adding a block earns you ETH. The nodes, which compute this types of operations, are called "miners". 
+
+Transactions are cryptographically signed instructions from accounts, which are any entities which can collect the native token ETH. An account will initiate a transaction to update the state of the Ethereum network. 
+The miners are the responsable to collect the transaction, chaning the state of the EVM and broadcast those in the network. Transactions require a fee and must be mined to become valid. 
+The unit of measurement for the amount of computing effort necessary to perform various activities on the Ethereum network is called gas. It rapresents the fuel of the blockchain. 
+The account can set a limit of the amount of ETH to pay. If the price of gas is less than the one paied by the user, it has a refund. If the amount of fees is not enough, a out of gas exception can occure.
+\subsection{Smart Contracts and Solidity}
+The definition given by the Ethereum foundation of Smart concract is:
+
+\textit{A "smart contract" is simply a program that runs on the Ethereum blockchain. It's a collection of code (its functions) and data (its state) that resides at a specific address on the Ethereum blockchain.}
+
+It is considered as a type of Ethereum Account, which is any entity with an ether (ETH) balance that can send transactions on Ethereum. 
+They are deployed on the network and run according to the code. User accounts can then engage with a smart contract by sending transactions that instruct the smart contract to perform a function. 
+Smart contracts, like conventional contracts, can set rules and have them enforced automatically through programming.
+They can't be deleted by default, and their interactions are permanent. 
+
+The EVM smart contracts can be programmed in several languages. The most active and maintained languages is Solidity, which our work deals with. 
+It is an object-oriented and high-level language. It supports:
+\begin{itemize}
+  \item inheritance;
+  \item libraries;
+  \item complex;
+  \item libraries;
+  \item complex user-defined types.
+\end{itemize}
+A smart contract, as a program developed in others programming languages, contains parameters, a constractur and functions. A peculiarity of this lenguage is the fallback functions. 
+They have been involved in many attacks, as explained in section \ref{Vulnerabilities}, but they were developed without a malicious aim. 
+They are external function with neither a name, parameters, or return values. Only one fallback can be assigned to a contract. 
+A fallback function is triggered:
+\begin{itemize}
+  \item if a function identifier does not match any of the available functions in a smart contract;
+  \item if there was no data supplied along with the function call.
+\end{itemize}
+
+A fallback function always receive data, but it should be marked as payable for accepting etheres. 
+
+
+\subsection{Security}
+Our work covers a topic 
+Concepts of vulenrability
+Fuzzing
+Symbolic execution 
+Formal Verification 
+Scanner 
 
 
 \begin{table*}
@@ -293,11 +378,9 @@ This includes locked or stolen resources, breaches of confidentiality or data in
 changes in the environment of smart contracts that were not
 detected by developers or users, therefor they possibly be exploited by a malicious part.
 
-\subsection{Vulnerabilities Classification and examples}
-\label{sec:Vulnerabilities:Classification}
 We summeries different Vulnerabilities, providing a definition and a real-world example.
 
-\paragraph{Reentrancy} It is one of the vulnerabilities much more exploited during the recent year. 
+\subsection{Reentrancy} It is one of the vulnerabilities much more exploited during the recent year. 
 Many attacks occured and could steal great amount of many to vulnerable protocol. 
 A reentrancy attack can occur when a function makes an external call to another untrusted contract 
 before it resolves any effects. 
@@ -309,6 +392,7 @@ The attacker, with the usage of a malicious smart contract, can call again the v
 It is run multiple time, without updating the balance, withrawing all the funds. There are several countermeasures for this type of bug: 
 semaphores logic can be implemented with the modifiers, the update of the variable can be moved before the external call. 
 The external call can be safe if the developer checks the amount of gas used, in order to avoid an attacker can modify the control flow. 
+One of the foundamental of this attack is the usage of fallback by the malicious contract.
 \begin{lstlisting} [language=Solidity, caption={Reentrancy}, label={lst:Reentrancy}]
 contract EtherStore {
     mapping(address => uint) public balances;
@@ -323,12 +407,40 @@ contract EtherStore {
 
         balances[msg.sender] = 0;
     }
-    ...
+}
+
+
+contract Attack {
+    EtherStore public etherStore;
+
+    constructor(address _etherStoreAddress) {
+        etherStore = EtherStore(_etherStoreAddress);
+    }
+
+    // Fallback is called when EtherStore sends Ether to this contract.
+    fallback() external payable {
+        if (address(etherStore).balance >= 1 ether) {
+            etherStore.withdraw();
+        }
+    }
+
+    function attack() external payable {
+        require(msg.value >= 1 ether);
+        etherStore.deposit{value: 1 ether}();
+        etherStore.withdraw();
+    }
+
+    // Helper function to check the balance of this contract
+    function getBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+}
+
 }
   
 \end{lstlisting}
 
-\paragraph{Unexpected Ether balance} An exploites can generated a Dos attack when the smart contract strictly assume a specific token balance. 
+\subsection{Unexpected Ether balance} An exploites can generated a Dos attack when the smart contract strictly assume a specific token balance. 
 It is always possible to forcibly send ether to a contract (without triggering its fallback function), 
 using selfdestruct, or by mining to the account. Smart Contracts which rely on code execution for every ether sent to the contract can be vulnerable to attacks where ether is sent.
 In the provided example (\autoref{lst:UnexpectedEther}), the function play() has a require at line 5, which checks no players can play when the balance 
@@ -365,7 +477,7 @@ revert because of the require. As a consequence, no one could withdraw the funds
   ...
 \end{lstlisting}
 
-\paragraph{Overflows \& Underflows} The Ethereum Virtual Machine (EVM) defineds fixed-size data types for integers. 
+\subsection{Overflows \& Underflows} The Ethereum Virtual Machine (EVM) defineds fixed-size data types for integers. 
 An example is the identifier uint8, unsign integer over 8 bit, for variables means the variable can only store numbers in the range [0,255].
 The attacker can craft the input value of a vulnerable contract's function in order to force a specific operation. 
 In the contract TimeLock in \autoref{lst:ArithmeticOp}, an attacker could forge a parameter of the function function increaseLockTime, 
@@ -397,7 +509,7 @@ contract TimeLock {
 }
 \end{lstlisting}
 
-\paragraph{Block Timestamp Manipulation} ispart of the cathegory of vulnerabilities that can be exploited by corrupt miners. 
+\subsection{Block Timestamp Manipulation} ispart of the cathegory of vulnerabilities that can be exploited by corrupt miners. 
 A miner cac forge the timestamp by a few seconds, for obtaing benefits. 
 The timestamp dependence vulnerability occurs from a flawed comprehension of timekeeping. It enables the Ethereum
 network to be detached from the synchronized global clock. 
@@ -421,7 +533,7 @@ a malicious miner could adjust the timestamp for getting the win.
   ...
 \end{lstlisting}
 
-\paragraph{Call to the unknown} The smart contracts workflow might be manipulated by 
+\subsection{Call to the unknown} The smart contracts workflow might be manipulated by 
 the invocation of third party or untrusted code. The callee can implemnt malicous code which can be run and 
 modify the normal execution of the calleer. For an untrusted, malicious
 party, it might be possible to inject code in a way, that can inﬂuence the contracts behavior unexpectedly
@@ -451,7 +563,7 @@ contract Malicious{
 }
 \end{lstlisting}
 
-\paragraph{Transaction Ordering Dependence} Miners are responsable for the creation and certification of 
+\subsection{Transaction Ordering Dependence} Miners are responsable for the creation and certification of 
 the blocks on the blockchain. Inside those, the transactions are stores, but their order is not guaranteed by 
 design and the miners can easily manipulate that. Consequently, this makes the smart contracts vulnerable to the transaction
 order dependency, it can be classified as a type of race condition. The vulenrability relies on smart contracs critical decision 
@@ -487,7 +599,7 @@ contract MarketPlace {
 }
 \end{lstlisting}
 
-\paragraph{Denial Of Service (DOS)} Denial of service attack is a cathegory of attack, which involeves all those one which have the aim to 
+\subsection{Denial Of Service (DOS)} Denial of service attack is a cathegory of attack, which involeves all those one which have the aim to 
 disturb the functionality or stop the execution of the target system. In the context of smart contracts, we can provide some example of this cathegory, 
 which involve multiple strategies for breaking the normal flow execution of the program.
 
@@ -518,7 +630,7 @@ contract Auction {
 \end{lstlisting}
 
 
-\paragraph{Out of Gas} In Ethereum, we have to pay for each computational operation, measured in the unit called gas. 
+\subsection{Out of Gas} In Ethereum, we have to pay for each computational operation, measured in the unit called gas. 
 In the Ethereum documentation, gas is defined as follows: “Gas refers to the unit that measures the amount of computational effort required to execute specific operations on the Ethereum network. 
 Since each Ethereum transaction requires computational resources to execute, each transaction requires a fee. 
 Gas refers to the fee required to conduct a transaction on Ethereum successfully.” 
@@ -529,7 +641,7 @@ We used \autoref{lst:DOS} for showing an example of DOS, but it implements an ou
 The amount of gas depends on the number of the for loop's iteration. If the number of iteration grows too much, the function would always revert. A malicious attacker can 
 manipulate the number of iterations, using a great number of wallet for the bid.
 
-\paragraph{Unchecked CALL/SEND Return Values} There a number of ways of performing external calls in solidity. The transfer() method is the most common way for exchanging ether between smart contracts. 
+\subsection{Unchecked CALL/SEND Return Values} There a number of ways of performing external calls in solidity. The transfer() method is the most common way for exchanging ether between smart contracts. 
 It reverts if the something goes wrong and function does not succeed. However, the send() and call() function can also be used and, for more versatile external call. 
 These functions return a boolean indicating if the call succeeded or failed.  A common bug relies on the return value is not checked, rather the developer expects a revert to occur. 
 
@@ -557,13 +669,12 @@ contract Bank{
 \section{Methods for finding Vulnerabilities}
 \label{MethodologiesForTools}
 This section is addressed to present the most effective and common tools with their strategies in Ethereum smart contract context. 
-We classify the tools in 2 big cathegories: with and without specification. 
+We classify the tools in 2 big cathegories: with and without specification. The tables \ref{tab:ToolsWithoutSpec} and \ref{tab:ToolsWithSpec} collect the tools. 
 In the firt case, tools need specifications for running. On the other hand,  the former group 
 deals with those which can give a result from the solidity file.
 
 
 
-\subsection{Tools without Specifications} 
 \begin{table*}
   \caption{Tools without Specifications}
   \label{tab:ToolsWithoutSpec}
@@ -585,7 +696,7 @@ deals with those which can give a result from the solidity file.
 \end{table*}
  
 
-\paragraph{Slither} Slither is a smart contract code static analysis framework.
+\subsection{Slither} Slither is a smart contract code static analysis framework.
 It has rapid and reliable security detection algorithms for potential bugs.
 Slither can be used for automatic vulnerability identification, automated optimization detection, code interpretation, and assisted code review, among other things.
 For the security analysis, a multi-stage approach is started.
@@ -594,7 +705,7 @@ Slither gathers important contract information such as the inheritance graph, Co
 The next stage includes converting the complete code to SlithIR.
 The code analysis task is then completed by computing a list of pre-defined analyses in the next stage. 
 
-\paragraph{Mythril} Mythril is a security tool that examines Solidity-based smart contracts.
+\subsection{Mythril} Mythril is a security tool that examines Solidity-based smart contracts.
 In order to discover code flaws, Mythril, an open-source programme, employs the symbolic execution technique.
 Executing smart contract bytecode in a custom constructed EVM is used to look for security issues.
 To complete its security study, Mythril goes through four major stages.
@@ -602,7 +713,7 @@ When a programme defect is detected, the input transactions are examined to esta
 This security strategy aids in determining the root cause of a program's vulnerability as well as mitigating exploitation.
 Mythril can discover problems in a contract's source code if a developer provides it. 
 
-\paragraph{SmartTest}SmartTest is an Ethereum smart contract safety analyzer.
+\subsection{SmartTest}SmartTest is an Ethereum smart contract safety analyzer.
 For effectively detecting susceptible transaction sequences, it uses a symbolic execution method.
 The tool to detect transaction sequences, showing the weaknesses of the examined smart contract, is the project's core problem.
 As a result, bugs are discovered as the source of multiple transaction interaction.
@@ -618,14 +729,13 @@ vulnerability (e.g., unauthorized access to selfdestruct). In the paper, the aut
 just those, without considering vulnerabilities that require analysis of the interaction of
 multiple contracts to demonstrate the flaws (e.g., reentrancy).
 
-\paragraph{Oyente}Oyente is a symbolic execution tool for finding smart contract security flaws.
+\subsection{Oyente}Oyente is a symbolic execution tool for finding smart contract security flaws.
 Oyente analyses Ethereum smart contracts for security flaws that could lead to possible attacks.
 Oyente not only finds dangerous bugs, but it also looks at every possible execution path.
 In an experiment conducted by Oyente on 19,366 smart contracts, 8,833 of them were found to be susceptible.
 The symbolic execution approach uses a mathematical formula to reflect the characteristics of an execution path.
 Oyente compares the new formula to formulae that contain common bugs to see if both formulas are valid at the same time. 
 
-\subsection {Tools with Specifications}
 
 \begin{table*}
   \caption{Tools With Specifications}
@@ -640,17 +750,17 @@ Oyente compares the new formula to formulae that contain common bugs to see if b
     \hline
     Manticore  & Symbolic Execution, security properties analysis \\
     \hline
-    SolcVerify & Formal Verification 
+    SolcVerify & Formal Verification \\
   \end{tabular}
 \end{table*}
-\paragraph{Echidna} Echidna was created by the same people who created Slither.
+\subsection{Echidna} Echidna was created by the same people who created Slither.
 It's a sophisticated fuzzer for EVM that finds problems in Solidity code.
 To conduct deep analysis for defects, this tool just requires Solidity propositions and provides a simple user interface (UI) to simplify its results.
 Echidna tries several combinations of inputs until it succeeds in breaking the given property.
 Echidna has a few characteristics with Manticore, allowing it to function at the EVM level.
 It can also be merged to continuous integration (CI) in order to detect code issues while development is ongoing. 
 
-\paragraph{Manticore} Manticore is a Solidity audit tool that analyzes smart contracts symbolically.
+\subsection{Manticore} Manticore is a Solidity audit tool that analyzes smart contracts symbolically.
 Manti-key core's functions include tracing inputs that terminate a program, logging instruction-level implementation, and offering Python API access to its analysis engine.
 It features a capability called dynamic symbolic execution that examines binaries and Ethereum smart contracts.
 The Core Engine, Native Execution Modules, and Ethereum Execution Modules are the three main components of Manticore's architecture.
@@ -658,7 +768,7 @@ Secondary features include the Satisfiability Modulo Theories (SMT-LIB) module, 
 In our work, we are using manticore verifier, which deals with the proof of properties given by the developer. 
 The properties are enbedded in the code, written as a solidity function.
 
-\paragraph{SolcVerify} SolcVerify is an Ethereum smart contract source-level verification tool.
+\subsection{SolcVerify} SolcVerify is an Ethereum smart contract source-level verification tool.
 It accepts Solidity smart contracts and uses modular programme analysis to discharge verification conditions.
 Because it is built on top of the Solidity compiler, it can reason at the contract source code level.
 Solc-verify can reason about high-level contract properties while reliably modelling low-level language semantics as a result of this.
