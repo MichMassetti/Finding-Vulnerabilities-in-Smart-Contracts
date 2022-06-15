@@ -59,6 +59,7 @@ while executing---line 3072 of file ACM-Reference-Format.bst
 Warning--no journal in Echidna
 Warning--no number and no volume in Echidna
 Warning--page numbers missing in both pages and numpages fields in Echidna
+Warning--page numbers missing in both pages and numpages fields in CNNML
 Warning--empty publisher in Methodologies
 Warning--empty address in Methodologies
 Warning--empty publisher in FuzzML
@@ -70,45 +71,45 @@ Warning--empty address in Thesis
 Warning--page numbers missing in both pages and numpages fields in Thesis
 Warning--page numbers missing in both pages and numpages fields in AutomaticTools
 Warning--empty address in SmartTest
-You've used 18 entries,
+You've used 19 entries,
             5981 wiz_defined-function locations,
-            1759 strings with 23983 characters,
-and the built_in function-call counts, 18981 in all, are:
-= -- 2303
-> -- 596
+            1766 strings with 24255 characters,
+and the built_in function-call counts, 20631 in all, are:
+= -- 2598
+> -- 651
 < -- 0
-+ -- 194
-- -- 204
-* -- 1325
-:= -- 1841
-add.period$ -- 89
-call.type$ -- 18
-change.case$ -- 125
-chr.to.int$ -- 18
-cite$ -- 35
-duplicate$ -- 1725
-empty$ -- 1222
-format.name$ -- 252
-if$ -- 4551
++ -- 213
+- -- 222
+* -- 1451
+:= -- 1976
+add.period$ -- 94
+call.type$ -- 19
+change.case$ -- 135
+chr.to.int$ -- 19
+cite$ -- 37
+duplicate$ -- 1847
+empty$ -- 1309
+format.name$ -- 274
+if$ -- 5019
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 59
-newline$ -- 228
-num.names$ -- 130
-pop$ -- 691
+missing$ -- 67
+newline$ -- 239
+num.names$ -- 137
+pop$ -- 738
 preamble$ -- 1
-purify$ -- 269
+purify$ -- 287
 quote$ -- 0
-skip$ -- 627
+skip$ -- 659
 stack$ -- 0
-substring$ -- 1333
-swap$ -- 141
+substring$ -- 1450
+swap$ -- 155
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 456
-warning$ -- 17
-while$ -- 104
+type$ -- 458
+warning$ -- 18
+while$ -- 109
 width$ -- 0
-write$ -- 424
+write$ -- 446
 (There were 21 error messages)

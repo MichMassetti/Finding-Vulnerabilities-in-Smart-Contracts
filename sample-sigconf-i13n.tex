@@ -762,12 +762,45 @@ By classifying contracts that were discovered by MAIAN as vulnerable during trai
 
 \cite{CNNML} deals with the training of a CNN (convolutional Neural Network) by converting a sizable amount of Ethereum bytecode into RGB colour coding,  trained a CNN model. The model now automatically analyses input bytecode to flag potential compiler errors. 
 
+ContractWard (\cite{MLtool}) is an example of attempt of Automated Vulnerability Detection Models for Ethereum Smart Contracts. It can detect the following six types of vulnerability: 
+\begin{itemize}
+    \item integer Overflow and Integer Underflow Vulnerabilities;
+    \item transaction-Ordering Dependence (TOD);
+    \item callstack depth attack vulnerability;
+    \item timestamp dependency;
+    \item reentrancy vulnerability.
+\end{itemize}
+
+The model adopts two simple classification algorithms, namely, SVM and KNN together with two sampling methods.
+The source codes of the smart contracts selected as datasets are transformed into operation codes (opcodes). Oyente is used to label all the contracts, which have six labels each.  N-Gram, which refers to n words that appear
+continuously in text, is the algorithm implied for feature extraction.
+One vs. Rest (OvR) algorithm is adopted for multi-label classification where
+C1, C2, C3, C4, C5 and C6 correspond to the six selected vulnerabilities. 
+Finally, detection models are built based on the balanced
+training sets for the detection.
 
 \section{Discussion}
 \label{Discussion}
 
+Since every user on the blockchain can access directly to the smart contracts, the security of those is a challenge. The source code might be private, but it is always possible to draw the bytecode; in most projects, for ingratiating the investors, developers publish the source code of those.  
+
+A strong check of bugs is necessary before it is deployed. The tools without specification can be very effective in the most common vulnerabilities, such as reentrancy. On the other hand, recently many attacks involve the logic of the program, such as the estimation of rewards for a holder, or the creation of a taken. Such similar vulnerabilities cannot be gotten by those, because in this case the property is defined by the developer itself. Tools with specifications come in our help, in this case, allowing the tester to check if the property can be broken by a malicious sequence of functions. Multiples approches have been adapeted for smart contracts, but the reaserch is still investigating for adapting more vaulable analysis techniques.
+
+Machine Learning (ML) has been used for the analysis of transactions and for defining specific aspects on-chain. Another prominent use is the financial one, for estimating the best time for computing a transaction through data analysis.
+
+However, ML applied to the scanning of solidity smart contracts research is just at the beginning. Since the amount of data is growing, there are more possibilities that the accuracy of the modules can increase.  An example of ML applied in the security field is a malware scanner, which firstly converts the files as coloured images and then applied the Neural Nets to that. The problem with smart contracts is the small number of lines of code which handle a great number of investments. A misposition of a line of code might bring a loss of millions of dollars. Therefore, a false positive can have disastrous consequences.
+
+
 \section{Conclusion}
 \label{Conclusion}
+Users can create decentralised digital agreements using smart contract technology without the aid of a third party.
+Sectors such as health, company management, shareholder agreements, and insurance were drawn to this technology.
+
+However, as this technology's adoption has increased, potential attackers get more interested in it, which leads to several serious exploitations. 
+Multiple security strategies adopted in common programs can be used in this context, but smart contracts logic has peculiarities.
+
+In this paper, our research presented the most common vulnerabilities in Solidity smart contracts. Those can be written even with different programming languages on different blockchains, but Solidity represents the most used one; some EVM-compatible blockchains that mostly adopt Solidity as the language for smart contracts are Avalanche, Polygon, IOTA, Tendermint, Binance Smart Chain.
+We selected and presented some analysis tools, describing their strategies. More security approaches can be applied in this field and the research is growing. Machine learning is still in a research phase, but in the next years, we expect the development of multiple tools with this technology.
 
 
 %%
