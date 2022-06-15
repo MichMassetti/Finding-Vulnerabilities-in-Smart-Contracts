@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{13}
+\begin{thebibliography}{18}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -43,7 +43,7 @@
   \bibinfo{year}{2018}\natexlab{}.
 \newblock \bibinfo{title}{Decentralized Application Security Project (or DASP)
   Top 10}.
-\newblock \bibinfo{howpublished}{https://www.dasp.co/#item-4}.
+\newblock \bibinfo{howpublished}{https://www.dasp.co/}.
 \newblock
 
 
@@ -78,10 +78,10 @@
 \tempurl}
 
 
-\bibitem[Foundation([n.\,d.])]%
+\bibitem[Foundation(2020)]%
         {ETHfoundation}
 \bibfield{author}{\bibinfo{person}{Ethereum Foundation}.}
-  \bibinfo{year}{[n.\,d.]}\natexlab{}.
+  \bibinfo{year}{2020}\natexlab{}.
 \newblock \bibinfo{title}{Ethereum developer resources}.
 \newblock
 \newblock
@@ -101,6 +101,34 @@
 \newblock
 
 
+\bibitem[Huang(2018)]%
+        {CNNML}
+\bibfield{author}{\bibinfo{person}{TonTon~Hsien{-}De Huang}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \bibinfo{title}{Hunting the Ethereum Smart Contract: Color-inspired
+  Inspection of Potential Attacks}.
+\newblock
+\newblock
+\showeprint[arXiv]{1807.01868}
+\urldef\tempurl%
+\url{http://arxiv.org/abs/1807.01868}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Kim and Ryu(2020)]%
+        {Methodologies}
+\bibfield{author}{\bibinfo{person}{Shinhae Kim} {and} \bibinfo{person}{Sukyoung
+  Ryu}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Analysis of Blockchain Smart Contracts: Techniques
+  and Insights}. In \bibinfo{booktitle}{\emph{2020 IEEE Secure Development
+  (SecDev)}}. \bibinfo{pages}{65--73}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/SecDev45635.2020.00026}
+\showDOI{\tempurl}
+
+
 \bibitem[Kushwaha et~al\mbox{.}(2022)]%
         {ToolsAndVuln}
 \bibfield{author}{\bibinfo{person}{Satpal~Singh Kushwaha},
@@ -114,6 +142,22 @@
 \newblock
 \urldef\tempurl%
 \url{https://doi.org/10.1109/ACCESS.2021.3140091}
+\showDOI{\tempurl}
+
+
+\bibitem[Liao et~al\mbox{.}(2019)]%
+        {FuzzML}
+\bibfield{author}{\bibinfo{person}{Jian-Wei Liao}, \bibinfo{person}{Tsung-Ta
+  Tsai}, \bibinfo{person}{Chia-Kang He}, {and} \bibinfo{person}{Chin-Wei
+  Tien}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{SoliAudit: Smart Contract Vulnerability Assessment
+  Based on Machine Learning and Fuzz Testing}. In
+  \bibinfo{booktitle}{\emph{2019 Sixth International Conference on Internet of
+  Things: Systems, Management and Security (IOTSMS)}}.
+  \bibinfo{pages}{458--465}.
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.1109/IOTSMS48152.2019.8939256}
 \showDOI{\tempurl}
 
 
@@ -219,6 +263,36 @@
 \url{https://www.usenix.org/conference/usenixsecurity21/presentation/so}
 \showURL{%
 \tempurl}
+
+
+\bibitem[Tang et~al\mbox{.}(2021)]%
+        {MLSmartContractPropose}
+\bibfield{author}{\bibinfo{person}{Xiangyan Tang}, \bibinfo{person}{Ke Zhou},
+  \bibinfo{person}{Jieren Cheng}, \bibinfo{person}{Hui Li}, {and}
+  \bibinfo{person}{Yuming Yuan}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{The Vulnerabilities in Smart Contracts: A Survey}.
+  In \bibinfo{booktitle}{\emph{Advances in Artificial Intelligence and
+  Security}}, \bibfield{editor}{\bibinfo{person}{Xingming Sun},
+  \bibinfo{person}{Xiaorui Zhang}, \bibinfo{person}{Zhihua Xia}, {and}
+  \bibinfo{person}{Elisa Bertino}} (Eds.). \bibinfo{publisher}{Springer
+  International Publishing}, \bibinfo{address}{Cham},
+  \bibinfo{pages}{177--190}.
+\newblock
+\showISBNx{978-3-030-78621-2}
+
+
+\bibitem[Tann et~al\mbox{.}(2018)]%
+        {MLAnalysis}
+\bibfield{author}{\bibinfo{person}{Wesley Joon-Wie Tann},
+  \bibinfo{person}{Xing~Jie Han}, \bibinfo{person}{Sourav~Sen Gupta}, {and}
+  \bibinfo{person}{Yew-Soon Ong}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \bibinfo{title}{Towards Safer Smart Contracts: A Sequence Learning
+  Approach to Detecting Security Threats}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://doi.org/10.48550/ARXIV.1811.06632}
+\showDOI{\tempurl}
 
 
 \end{thebibliography}
