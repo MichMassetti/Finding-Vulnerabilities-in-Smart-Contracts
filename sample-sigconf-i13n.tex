@@ -234,10 +234,9 @@ In Section \ref{RelatedWork}, we deal with the actual papers and work regarding 
 
 Section \ref{Vulnerabilities} gives a taxonomy for the main vulnerabilities about Solidity. 
 
-The classification of analysis tools is shown in Section \ref{MethodologiesForTools} and their strategies are described.
+The classification of analysis tools is shown in Section \ref{MethodologiesForTools}. Moreover, their strategies are explained and more possible way for vulnerabilities detection.
 
-Section \ref{Discussion} is addressed to the new incoming methods for finding vulnerabilities.
-
+Section \ref{Discussion} is addressed to a comparison between the different discussed methodologies and possible strategies for the prevention of exploits.
 
 
 
@@ -343,6 +342,7 @@ Those operate as a sort of filter, scanning the traffic, and applying the policy
 On the other hand, none of those can be applied in smart contracts environment, so finding vulnerabilities is a big challenge for developers. 
 Malicious accounts can exploit the bug inside the smart contract, but developers should be aware the order of the execution of transactions depends even on the miners which compute the blocks.
 
+
 \begin{table*}
   \caption{Collection of Vulnerabilities}
   \label{tab:CollectionOfVulnerabilities}
@@ -384,6 +384,8 @@ changes in the environment of smart contracts that were not
 detected by developers or users, therefore they possibly are exploited by a malicious part.
 
 We summaries different vulnerabilities, providing a definition and \autoref{tab:CollectionOfVulnerabilities} shows the correlation with Dasp10 and SWC, associating per each vulnerability the identifier per project.
+
+The last section deals with an overview of bugs in the logic of a smart contracts. It awarns that a vulnerability can rely even upon an incorrect implementation of the contracts.
 
 \subsection{Reentrancy} 
 Reentrancy is one of the vulnerabilities much more exploited in recent years. 
@@ -635,15 +637,31 @@ contract Bank{
 
 \end{lstlisting}
 
+\subsection{General Vulnerability}
+The previous vulnerabilities specifically deal with problems involving Solidity. However, the smart contract, seen just as a 
+program, could have a weak implementation.
+The most frequent issue, though, is typically a simple mistake in the smart contract's logic.
+These mistakes, which have a significant impact on security, can be the result of simple typographical errors or specification ambiguities. 
+
+Decentralized finance (DeFi) is an emerging financial technology based on blockchain. Smart contracts usually implement the logic of a bank, providing financial operations. Since these collect a great amount of money, an error in their logic can cost millions of dollars. A leak of security can be caused by a bug dealing with the code itself (Solidity issue) or even by the logic of the program itself.  
+
+Examples of bad logic implementation are the bugs concerning the pools, with leaks which allowed the attacker to drain the liquidity.
+Liquidity pools, in the DeFi, are reserves of tokens secured in smart contracts. They are the primary technology underlying the present DeFi ecosystem. They allow user to deposit tokens receiving an interest on the deposit or provide lend. Bad implementation of the mechanism of reward or a miscalculation of the rewards can have the consequence of an exploit. 
+
+A reason for an attack can rely even on the miscomputation of the algebraical formulas; it could bring to an exploit, even if the implementation in Solidity would be correct.
+
+
 \section{Methods for finding Vulnerabilities}
 \label{MethodologiesForTools}
 This section is addressed to present the most effective and common tools with their strategies in Ethereum smart contracts context. 
 We classify the tools in 2 main categories: with and without specification. The tables \ref{tab:ToolsWithoutSpec} and \ref{tab:ToolsWithSpec} collect the tools. 
 In the first case, tools need specifications for running. On the other hand,  the former group 
 deals with those which can give a result from the solidity file.
-The last subsection deals with Machine Learning, which has been adopted in research and it is getting more effective.
+The last subsections deals with general methodologies which are very useful in this context. 
 
+Machine Learning has been adopted in research and it is getting more effective. 
 
+Checking the absence of bugs is fundamental, but even certifying the contract fulfils the prefixed goals is necessary. Thus, before deployment on the blockchain, there are strategies to control the behaviour of the contract in a similar environment.
 
 \begin{table*}
   \caption{Tools without Specifications}
@@ -671,6 +689,7 @@ It has rapid and reliable security detection algorithms for potential bugs.
 Slither can be used for automatic vulnerability identification, automated optimization detection, code interpretation, and assisted code review, among other things.
 For the security analysis, a multi-stage approach is started.
 From the contract source code, the Solidity compiler generates a Solidity Abstract Syntax Tree (AST), which is utilised as an input to Slither.
+
 Slither gathers important contract information such as the inheritance graph, Control-flow graph (CFG), and so on during the early stage.
 The next stage includes converting the complete code to SlithIR.
 The code analysis task is then completed by computing a list of pre-defined analyses in the next stage. 
@@ -681,6 +700,7 @@ In order to discover code flaws, Mythril, an open-source programme, employs the 
 Executing smart contract bytecode in a custom constructed EVM is used to look for security issues.
 To complete its security study, Mythril goes through four major stages.
 When a programme defect is detected, the input transactions are examined to establish the cause.
+
 This security strategy aids in determining the root cause of a program's vulnerability as well as mitigating exploitation.
 Mythril can discover problems in a contract's source code if a developer provides it. 
 
@@ -692,12 +712,15 @@ As a result, bugs are discovered as the source of multiple transaction interacti
 SmartTest's goal is to automatically deliver vulnerable transaction sequences that demonstrate the smart contract's flaws. 
 The fundamental idea is to leverage known vulnerable transaction sequences to develop a statistical model that can be used to drive symbolic execution 
 towards more successfully discovering unknown vulnerabilities.
+
 Statistical language models direct symbolic execution, allowing it to select transacion sequences that are likely to reveal vulnerabilities.
 The first step in this strategy is to perform unguided symbolic execution on existing vulnerable contracts, followed by learning a probability 
 distribution over vulnerable transaction sequences. The detection of the following six types of security-critical vulnerabilities are supported
 by the tool: integer over/underflow, assertion violation, division-by-zero, ERC20 standard
 violation, Ether-leaking vulnerability (e.g., unauthorized access to transfer), and suicidal
-vulnerability (e.g., unauthorized access to selfdestruct). In the paper, the authors focus on
+vulnerability (e.g., unauthorized access to selfdestruct). 
+
+In the paper, the authors focus on
 just those, without considering vulnerabilities that require analysis of the interaction of
 multiple contracts to demonstrate the flaws (e.g., reentrancy).
 
@@ -779,6 +802,16 @@ C1, C2, C3, C4, C5 and C6 correspond to the six selected vulnerabilities.
 Finally, detection models are built based on the balanced
 training sets for the detection.
 
+\subsection{Deployment}
+For having a certainty of not having bugs in the smart contracts, using tools is necessary. These look for bugs, try to break the provided rules or verify those. Developers have the possibility even to test the logic of the contracts in an environment similar to the real one, for checking the correct workflow of the program. 
+
+The developers should even verify if the program effectively behaves in the way it is supposed to. There are some strategies for deploying a contract, before the deployment on the main net.
+
+A test net is used for testing and experimentation without risk to real funds or the main chain. Ethereum Kovan is the most used test-net of Ethereum. 
+
+The Ethereum network can be virtualised on a machine for development. Hardhat is a powerful tool which deals with that. As presented in their documentation (\cite{Hardhat}), Hardhat comes built-in with Hardhat Network, a local Ethereum network node designed for development. It provides the option to fork the main net, so it is possible to reproduce exactly the real  Ethereum blockchain.
+
+
 \section{Discussion}
 \label{Discussion}
 
@@ -790,6 +823,10 @@ Machine Learning (ML) has been used for the analysis of transactions and for def
 
 However, ML applied to the scanning of solidity smart contracts research is just at the beginning. Since the amount of data is growing, there are more possibilities that the accuracy of the modules can increase.  An example of ML applied in the security field is a malware scanner, which firstly converts the files as coloured images and then applied the Neural Nets to that. The problem with smart contracts is the small number of lines of code which handle a great number of investments. A misposition of a line of code might bring a loss of millions of dollars. Therefore, a false positive can have disastrous consequences.
 
+For having a complete overview of the behaviour of a smart contract, it should be deployed in the most similar environment to the main net. Most of the tools do not allow inheriting specific information from the main net and they should be set up correctly. 
+The possibility of launching on a test net, or virtual environment, allows the developer to have a deepen view of the effectiveness of the contract.
+
+The high risk of attacks on the blockchain as a consequence of this technology is still in its first steps. An absence of legal regulation contributes to the increasing number of cyber crimes in this context. The adoption of this technology in more official fields, such as the adoption of a cryptocurrency as the currency of a country, would contribute to the research in security.
 
 \section{Conclusion}
 \label{Conclusion}
@@ -800,6 +837,7 @@ However, as this technology's adoption has increased, potential attackers get mo
 Multiple security strategies adopted in common programs can be used in this context, but smart contracts logic has peculiarities.
 
 In this paper, our research presented the most common vulnerabilities in Solidity smart contracts. Those can be written even with different programming languages on different blockchains, but Solidity represents the most used one; some EVM-compatible blockchains that mostly adopt Solidity as the language for smart contracts are Avalanche, Polygon, IOTA, Tendermint, Binance Smart Chain.
+
 We selected and presented some analysis tools, describing their strategies. More security approaches can be applied in this field and the research is growing. Machine learning is still in a research phase, but in the next years, we expect the development of multiple tools with this technology.
 
 
