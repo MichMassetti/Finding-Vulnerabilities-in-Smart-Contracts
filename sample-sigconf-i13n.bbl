@@ -78,19 +78,6 @@
 \tempurl}
 
 
-\bibitem[Foundation([n.\,d.])]%
-        {Hardhat}
-\bibfield{author}{\bibinfo{person}{Ethereum Foundation}.}
-  \bibinfo{year}{[n.\,d.]}\natexlab{}.
-\newblock \bibinfo{title}{Hardhat Documentation}.
-\newblock
-\newblock
-\urldef\tempurl%
-\url{https://hardhat.org/}
-\showURL{%
-\tempurl}
-
-
 \bibitem[Foundation(2020)]%
         {ETHfoundation}
 \bibfield{author}{\bibinfo{person}{Ethereum Foundation}.}
@@ -102,6 +89,15 @@
 \url{https://ethereum.org/en/developers/docs/}
 \showURL{%
 \tempurl}
+
+
+\bibitem[Foundation(2022)]%
+        {HardhatDoc}
+\bibfield{author}{\bibinfo{person}{Ethereum Foundation}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \bibinfo{title}{Hardhat Documentation}.
+\newblock \bibinfo{howpublished}{\url{https://hardhat.org/}}.
+\newblock
 
 
 \bibitem[Gustavo~Grieco(2020)]%

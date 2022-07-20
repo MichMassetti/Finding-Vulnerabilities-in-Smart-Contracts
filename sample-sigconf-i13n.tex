@@ -114,7 +114,7 @@ language=german, language=spanish, language=english]{acmart}
 %% "authornote" and "authornotemark" commands
 %% used to denote shared contribution to the research.
 \author{Michele Massetti}
-\email{big.michelemassetti@gmail.com}
+\email{ucmjt@student.kit.edu}
 \affiliation{%
   \institution{Karlsruhe Institute of Technologies}
   \city{Karlsruhe}
@@ -138,13 +138,13 @@ Blockchain is a revolutionary technology that enables users to communicate in a 
 The most prominent change brought by this technology is the mode of business between organizations: they do not need anymore a trusted third party. 
 It is a distributed ledger technology based on a decentralized P2P (peer-to-peer) network. 
 Since Bitcoin was deployed, many blockchain systems have been born with more capabilities, which have allowed them to fit many
-different use cases. Smart Contracts, which are programs running on blockchain systems, could extend the potentiality of blockchain
-from a platform for financial transactions to an all-purpose utility.
+different use cases. Smart Contracts, which are programs running on blockchain systems, could extend its potentiality from a platform for financial transactions to an all-purpose utility.
+
 The development of innovative and prominent applications is a consequence of them, such as NFTs (non fungible token) marketplaces, music royalty tracking, supply chain and logistics monitoring, voting mechanisms, 
 cross-border payments, and many others.
-Finding bugs and vulnerabilities in them is necessary for assuring their correct behaviour. 
-This paper deals with the way for finding the vulnerabilities in Ethereum-based Smart Contracts. We review related work regarding 
-the classification of the most common vulnerabilities and tools which support their detection.
+
+Security plays a central role in use cases having the integrity of data and financial matters as fundamental. Finding bugs and vulnerabilities is necessary for assuring the correct behaviour. 
+This paper deals with the discovery of the vulnerabilities in Ethereum-based Solidity smart contracts. We review related work regarding the classification of the most common vulnerabilities, tools and methodologies which support their detection.
 \end{abstract}
 
 %%
@@ -198,11 +198,8 @@ the classification of the most common vulnerabilities and tools which support th
 \maketitle
 
 \section{Introduction}
-Ethereum is the most used enverimont regarding smart contracts. Its DeFi (decentralized ﬁnance) 
+Ethereum is the most used environment regarding smart contracts. Its DeFi (decentralized ﬁnance)
 and dApps (decentralized applications) count the highest amount of dollars exchanged rather than the other distributed systems. Moreover, it can be described as the "internet of Blockchain", because Ethereum allows other systems to be built on top of itself, adopting its technology.
-Its ecosystem consists of a large
-variety of smart contracts deployed on-chain, and a wide range of
-valuable assets. 
 
 This growing technology has fascinated many investors, indeed, according to \href{https://www.coingecko.com/}{CoinGeko}, 
 the crypto market's value is standing around \$2 trillion. 
@@ -219,21 +216,21 @@ These incorporate various strategies for performing the analyses, concerning the
 so these would work differently according to the object of the analysis. 
 
 Among the many aspects of smart contract, our systematic
-literature review focuses on studies dealing with vulnerabilities and methodologies, and the tools which implemnt those ones, for their detection. We will try to give an answer to the following 
+literature review focuses on studies dealing with vulnerabilities and methodologies, and the tools which implement those ones, for their detection. We will try to give an answer to the following 
 research questions:
 \begin{itemize}
     \item Which are the main vulnerabilities in Smart Contracts?
-    \item Which methodologies are implemented by analysis tools and which are the most used ones?
+    \item Which are the most used analysis tools and which strategies are adopted for finding vulnerabilities?
     \item Which are possible new approaches for discovering vulnerabilities?
 \end{itemize}
 Section \ref{Background} gives an overview of blockchain and smart contracts technology, the execution environment and model. 
-In our work we focus on the Ethereum platform, however many concepts can be adapeted in multiple blockchain EVM (Ethereum Virtual Machine) compatible.
+In our work we focus on the Ethereum platform, however many concepts are equivalent in multiple blockchain EVM (Ethereum Virtual Machine) compatible.
 
 In Section \ref{RelatedWork}, we deal with the actual papers and studies regarding this topic, citing the ones we reviewed for the writing of this paper.
 
 Section \ref{Vulnerabilities} gives a taxonomy for the main vulnerabilities about Solidity. 
 
-A possible classification of analysis tools is drawn in Section \ref{MethodologiesForTools}. Moreover, their strategies are explained and it covers even possible ways for vulnerabilities detection.
+We present the analysis tools we selected in Section \ref{MethodologiesForTools}, explaining their methodologies. Moreover, it deals with 2 more strategies implemented for the same aim: Machine Learning and testing deployed contracts.
 
 Section \ref{Discussion} is addressed to a comparison between the discussed methodologies and possible strategies for the prevention of exploits.
 
@@ -643,7 +640,7 @@ A reason for an attack can rely even on the miscomputation of the algebraical fo
 \section{Methods for Finding Vulnerabilities}
 \label{MethodologiesForTools}
 This section is addressed to present the most effective and common tools with their strategies in Ethereum smart contracts context. 
-We classify the tools in 2 main categories: with and without specification. The tables \ref{tab:ToolsWithoutSpec} and \ref{tab:ToolsWithSpec} collect the tools. 
+We classify the tools in 2 main categories: with and without specification. Tables \ref{tab:ToolsWithoutSpec} and \ref{tab:ToolsWithSpec} collect the tools. 
 In the first case, tools need specifications for running. On the other hand,  the former group 
 deals with those which can give a result from the solidity file.
 The last subsections deals with general methodologies which are very useful in this context. 
@@ -728,7 +725,7 @@ The tools with specifications are listed in this subsection. We outline their ma
 
 \begin{table*}
   \caption{Tools With Specifications}
-  \label{TollsWithSpec}
+  \label{tab:ToolsWithSpec}
   \begin{tabular}{ccl}
     \toprule
     Name & Keywords \\
@@ -799,25 +796,25 @@ The purpose of the analysis tools is to provide assurance that there are no bugs
 
 The deployment of a smart contract in an environment as much similar to the on-chain one, helps the programmers to test and have a response to the behave of the software.
 
-Multiple blockchain systems provide a "test-net". A test-net is used for testing and experimentation without risk to real funds or the main chain. It is the same behaviour as the main-net, but then it has a different purpose, for example, the number of native tokens is unlimited.
+Multiple blockchain systems provide a "testnet". A testnet is used for testing and experimentation without risk to real funds or the main chain. It is the same behaviour as the mainnet, but then it has a different purpose, for example, the number of native tokens is unlimited.
 About Ethereum, Ethereum Kovan is the most used one. 
 
-The network can be virtualised on a machine for development. Hardhat is a powerful tool which carries that. As presented in their documentation (\cite{Hardhat}), Hardhat comes built-in with Hardhat Network, a local Ethereum network node designed for development. It provides the option to fork the main-net, so it is possible to reproduce exactly the real on-chain state. It allows to fork the chain, starting from a specific block.
+The network can be virtualised on a machine for development. Hardhat is a powerful tool which carries that. As presented in their documentation (\cite{HardhatDoc}), Hardhat comes built-in with Hardhat Network, a local Ethereum network node designed for development. It provides the option to fork the mainnet, so it is possible to reproduce exactly the real on-chain state. It allows to fork the chain, starting from a specific block.
 
 
 \section{Discussion}
 \label{Discussion}
 
-Since every user on the blockchain can access directly to the smart contracts, the security of those is a challenge. The source code might be private, but it is always possible to draw the bytecode; in most projects, for ingratiating the investors, developers publish the source code of those.  
+Since every user on the blockchain can access directly to the smart contracts, the security of those is a challenge. The source code might be private, but it is always possible to draw the bytecode; in most projects, for ingratiating the investors, developers publish the source code of these.  
 
-A in-depth approach to scanning bugs is necessary before the deployment. The tools without specification can be very effective in the most common vulnerabilities, such as reentrancy. On the other hand, recently many attacks involve the logic of the program, such as the estimation of rewards for a holder, or the creation of a taken. Such similar vulnerabilities cannot be gotten by those, because in this case the property is defined by the developer itself. Tools with specifications come in our help, in this case, allowing the tester to check if the property can be broken by a malicious sequence of functions. Multiple approaches have been adapted for smart contracts, but the research is still investigating for adapting more valuable analysis techniques.
+A in-depth approach to scanning bugs is necessary before the deployment. The tools without specification can be very effective in the most common vulnerabilities, such as reentrancy and out of gas exception. On the other hand, many attacks has recently involved the logic of the program, such as the estimation of rewards for a holder, the creation of a taken or the minting (generation) of NFTs. Such similar vulnerabilities cannot be gotten by those, because in this case the property is defined by the developer itself. Tools with specifications come in our help, in this case, allowing the tester to check if the property can be broken by a malicious sequence of functions. Multiple approaches have been adapted for smart contracts, but the research is still investigating for adapting more valuable analysis techniques.
 
-ML (Machine Learning) has been used for the analysis of transactions and for defining specific aspects on-chain. Another prominent use is the financial one, for estimating the best time for computing a transaction through data analysis.
+Machine Learning has been used for the analysis of transactions and for defining specific aspects on-chain. Another prominent use is the financial one, for estimating the best time for computing a transaction through data analysis. 
 
-However, ML applied to the scanning of solidity smart contracts research is just at the beginning. Since the amount of data is growing, there are more possibilities that the accuracy of the modules can increase.  An example of ML applied in the security field is a malware scanner, which firstly converts the files as coloured images and then applied the Neural Nets to that. The problem with smart contracts is the small number of lines of code which handle a great number of investments. A misposition of a line of code might bring a loss of millions of dollars. Therefore, a false positive can have disastrous consequences.
+However, its application to the scanning of solidity smart contracts research is just at the beginning. Since the amount of data is growing, there are more possibilities that the accuracy of the modules can increase.  An example of ML applied in the security field is a malware scanner, which firstly converts the files as coloured images and then applied the Neural Nets to that. The problem with smart contracts is the small number of lines of code which handle a great number of investments. A misposition of a line of code might bring a loss of millions of dollars. Therefore, a false positive can have disastrous consequences.
 
-For having a complete overview of the behaviour of a smart contract, it should be deployed in an environment as similar as possible to the main net. Most of the tools do not allow inheriting specific information from the main-net and they should be set up correctly. 
-The possibility of launching on a test-net, or virtual environment, allows the developer to have a deepen view of the effectiveness of the contract. Many tools allow to write test even in different languages, as javascript, and provide useful information as the code coverage.
+For having a complete overview of the behaviour of a smart contract, it should be deployed in an environment as similar as possible to the mainnet. Most of the tools do not allow inheriting specific information from the main chain and these should be set up correctly. 
+The possibility of launching on a testnet, or virtual environment, allows the developer to have a deepen view of the effectiveness of the contract. Many tools allow to write test even in different languages, as javascript, and provide useful information as the code coverage.
 
 The high risk of attacks on the blockchain as a consequence of this technology is still in its first steps. An absence of legal regulation contributes to the increasing number of cyber crimes in this context. The adoption of this technology in more official fields, such as the adoption of a cryptocurrency as the currency of a country, would contribute to the research in security.
 
@@ -827,11 +824,11 @@ Users can create decentralised digital agreements using smart contract technolog
 Sectors such as health, company management, shareholder agreements, and insurance were drawn to this technology.
 
 However, as this technology's adoption has increased, potential attackers get more interested in it, which leads to several serious exploitations. 
-Multiple security strategies adopted in common programs can be used in this context, but smart contracts logic has peculiarities.
+Multiple security strategies adopted in common programs can be used in this context, but smart contracts logic has peculiarities. 
 
-In this paper, our research presented the most common vulnerabilities in Solidity smart contracts. Those can be written even with different programming languages on different blockchains, but Solidity represents the most used one; some EVM-compatible ones that mostly adopt Solidity as the language for smart contracts are Avalanche, Polygon, IOTA, Tendermint, and Binance Smart Chain.
+In this paper, our research presented the most common vulnerabilities in Solidity smart contracts. Actually, Ethereum and multiple blockchains can adopt different programming languages, but Solidity is the most used one.
 
-We selected and presented some analysis tools, describing their strategies. More security approaches can be applied in this field and the research is growing. Machine learning is still in the research phase, but in the next years, we expect the development of multiple tools with this technology.
+We selected and presented some analysis tools, describing their strategies. However, more security approaches can be applied in this field and the research is still growing. For example, Machine learning is taking its first steps in this context, but in the next years, we expect the development of multiple tools with this technology. 
 
 
 %%
