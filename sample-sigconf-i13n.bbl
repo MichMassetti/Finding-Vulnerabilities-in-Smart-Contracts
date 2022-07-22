@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{20}
+\begin{thebibliography}{27}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -36,6 +36,59 @@
 \providecommand\bibinfo[2]{#2}
 \providecommand\natexlab[1]{#1}
 \providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Adam~Hayes and Kvilhaug(2022)]%
+        {BcArticle}
+\bibfield{author}{\bibinfo{person}{JeFreda R.~Brown Adam~Hayes} {and}
+  \bibinfo{person}{Suzanne Kvilhaug}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \bibinfo{title}{What Is a Blockchain}.
+\newblock \bibinfo{howpublished}{https://www.investopedia.com}.
+\newblock
+\urldef\tempurl%
+\url{https://www.investopedia.com/terms/b/blockchain.asp}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Buterin(2014)]%
+        {Ethereum}
+\bibfield{author}{\bibinfo{person}{Vitalik Buterin}.}
+  \bibinfo{year}{2014}\natexlab{}.
+\newblock \bibinfo{title}{Ethereum: A Next-Generation Smart Contract and
+  Decentralized Application Platform}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://ethereum.org/669c9e2e2027310b6b3cdce6e1c52962/Ethereum_Whitepaper_-_Buterin_2014.pdf}
+\showURL{%
+\tempurl}
+
+
+\bibitem[by~Example(2022)]%
+        {SolidityExamples}
+\bibfield{author}{\bibinfo{person}{Solidity by Example}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \bibinfo{title}{Khan Academy}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://solidity-by-example.org/}
+\showURL{%
+\tempurl}
+
+
+\bibitem[ConsenSys(2018)]%
+        {Mythril}
+\bibfield{author}{\bibinfo{person}{ConsenSys}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \bibinfo{title}{Mythril’s documentation}.
+\newblock \bibinfo{howpublished}{https://readthedocs.org/}.
+\newblock
+\urldef\tempurl%
+\url{https://mythril-classic.readthedocs.io/en/master/}
+\showURL{%
+\tempurl}
+
 
 \bibitem[David~Wong(2018)]%
         {DASP10}
@@ -96,7 +149,7 @@
 \bibfield{author}{\bibinfo{person}{Ethereum Foundation}.}
   \bibinfo{year}{2022}\natexlab{}.
 \newblock \bibinfo{title}{Hardhat Documentation}.
-\newblock \bibinfo{howpublished}{\url{https://hardhat.org/}}.
+\newblock \bibinfo{howpublished}{https://hardhat.org/}.
 \newblock
 
 
@@ -110,18 +163,31 @@
 \newblock
 
 
-\bibitem[Huang(2018)]%
-        {CNNML}
-\bibfield{author}{\bibinfo{person}{TonTon~Hsien{-}De Huang}.}
-  \bibinfo{year}{2018}\natexlab{}.
-\newblock \showarticletitle{Hunting the Ethereum Smart Contract: Color-inspired
-  Inspection of Potential Attacks}.
-\newblock \bibinfo{journal}{\emph{CoRR}}  \bibinfo{volume}{abs/1807.01868}
-  (\bibinfo{year}{2018}).
+\bibitem[Hajdu and Jovanovic(2019)]%
+        {SolcVerify}
+\bibfield{author}{\bibinfo{person}{{\'{A}}kos Hajdu} {and}
+  \bibinfo{person}{Dejan Jovanovic}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{solc-verify: {A} Modular Verifier for Solidity
+  Smart Contracts}.
+\newblock \bibinfo{journal}{\emph{CoRR}}  \bibinfo{volume}{abs/1907.04262}
+  (\bibinfo{year}{2019}).
 \newblock
-\showeprint[arXiv]{1807.01868}
+\showeprint[arXiv]{1907.04262}
 \urldef\tempurl%
-\url{http://arxiv.org/abs/1807.01868}
+\url{http://arxiv.org/abs/1907.04262}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Jake~Frankenfield(2022)]%
+        {ScArticle}
+\bibfield{author}{\bibinfo{person}{Erika~Rasure Jake~Frankenfield}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \bibinfo{title}{What Is a Smart Contract}.
+\newblock \bibinfo{howpublished}{https://www.investopedia.com}.
+\newblock
+\urldef\tempurl%
+\url{https://www.investopedia.com/terms/s/smart-contracts.asp}
 \showURL{%
 \tempurl}
 
@@ -155,22 +221,6 @@
 \showDOI{\tempurl}
 
 
-\bibitem[Liao et~al\mbox{.}(2019)]%
-        {FuzzML}
-\bibfield{author}{\bibinfo{person}{Jian-Wei Liao}, \bibinfo{person}{Tsung-Ta
-  Tsai}, \bibinfo{person}{Chia-Kang He}, {and} \bibinfo{person}{Chin-Wei
-  Tien}.} \bibinfo{year}{2019}\natexlab{}.
-\newblock \showarticletitle{SoliAudit: Smart Contract Vulnerability Assessment
-  Based on Machine Learning and Fuzz Testing}. In
-  \bibinfo{booktitle}{\emph{2019 Sixth International Conference on Internet of
-  Things: Systems, Management and Security (IOTSMS)}}.
-  \bibinfo{pages}{458--465}.
-\newblock
-\urldef\tempurl%
-\url{https://doi.org/10.1109/IOTSMS48152.2019.8939256}
-\showDOI{\tempurl}
-
-
 \bibitem[Luu et~al\mbox{.}(2016)]%
         {Oyente}
 \bibfield{author}{\bibinfo{person}{Loi Luu}, \bibinfo{person}{Duc-Hiep Chu},
@@ -189,13 +239,13 @@
 \showDOI{\tempurl}
 
 
-\bibitem[Mossberg et~al\mbox{.}(2019)]%
+\bibitem[Mossberg et~al\mbox{.}(2019a)]%
         {Manticore}
 \bibfield{author}{\bibinfo{person}{Mark Mossberg}, \bibinfo{person}{Felipe
   Manzano}, \bibinfo{person}{Eric Hennenfent}, \bibinfo{person}{Alex Groce},
   \bibinfo{person}{Gustavo Grieco}, \bibinfo{person}{Josselin Feist},
   \bibinfo{person}{Trent Brunson}, {and} \bibinfo{person}{Artem Dinaburg}.}
-  \bibinfo{year}{2019}\natexlab{}.
+  \bibinfo{year}{2019}\natexlab{a}.
 \newblock \showarticletitle{Manticore: {A} User-Friendly Symbolic Execution
   Framework for Binaries and Smart Contracts}.
 \newblock \bibinfo{journal}{\emph{CoRR}}  \bibinfo{volume}{abs/1907.03890}
@@ -204,6 +254,36 @@
 \showeprint[arXiv]{1907.03890}
 \urldef\tempurl%
 \url{http://arxiv.org/abs/1907.03890}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Mossberg et~al\mbox{.}(2019b)]%
+        {ManticoreVerifier}
+\bibfield{author}{\bibinfo{person}{Mark Mossberg}, \bibinfo{person}{Felipe
+  Manzano}, \bibinfo{person}{Eric Hennenfent}, \bibinfo{person}{Alex Groce},
+  \bibinfo{person}{Gustavo Grieco}, \bibinfo{person}{Josselin Feist},
+  \bibinfo{person}{Trent Brunson}, {and} \bibinfo{person}{Artem Dinaburg}.}
+  \bibinfo{year}{2019}\natexlab{b}.
+\newblock \bibinfo{title}{Property based symbolic executor:
+  manticore-verifier}.
+\newblock \bibinfo{howpublished}{https://readthedocs.org/}.
+\newblock
+\urldef\tempurl%
+\url{https://manticore.readthedocs.io/en/latest/verifier.html}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Nikolic(2018)]%
+        {MAIAN}
+\bibfield{author}{\bibinfo{person}{Ivica Nikolic}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \bibinfo{title}{MAIAN documentation}.
+\newblock \bibinfo{howpublished}{https://github.com}.
+\newblock
+\urldef\tempurl%
+\url{https://github.com/ivicanikolicsg/MAIAN}
 \showURL{%
 \tempurl}
 
@@ -259,7 +339,7 @@
 
 
 \bibitem[So et~al\mbox{.}(2021)]%
-        {SmartTest}
+        {SmarTest}
 \bibfield{author}{\bibinfo{person}{Sunbeom So}, \bibinfo{person}{Seongjoon
   Hong}, {and} \bibinfo{person}{Hakjoo Oh}.} \bibinfo{year}{2021}\natexlab{}.
 \newblock \showarticletitle{{SmarTest}: Effectively Hunting Vulnerable
@@ -273,22 +353,6 @@
 \url{https://www.usenix.org/conference/usenixsecurity21/presentation/so}
 \showURL{%
 \tempurl}
-
-
-\bibitem[Tang et~al\mbox{.}(2021)]%
-        {MLSmartContractPropose}
-\bibfield{author}{\bibinfo{person}{Xiangyan Tang}, \bibinfo{person}{Ke Zhou},
-  \bibinfo{person}{Jieren Cheng}, \bibinfo{person}{Hui Li}, {and}
-  \bibinfo{person}{Yuming Yuan}.} \bibinfo{year}{2021}\natexlab{}.
-\newblock \showarticletitle{The Vulnerabilities in Smart Contracts: A Survey}.
-  In \bibinfo{booktitle}{\emph{Advances in Artificial Intelligence and
-  Security}}, \bibfield{editor}{\bibinfo{person}{Xingming Sun},
-  \bibinfo{person}{Xiaorui Zhang}, \bibinfo{person}{Zhihua Xia}, {and}
-  \bibinfo{person}{Elisa Bertino}} (Eds.). \bibinfo{publisher}{Springer
-  International Publishing}, \bibinfo{address}{Cham},
-  \bibinfo{pages}{177--190}.
-\newblock
-\showISBNx{978-3-030-78621-2}
 
 
 \bibitem[Tann et~al\mbox{.}(2018)]%
@@ -305,6 +369,32 @@
 \showDOI{\tempurl}
 
 
+\bibitem[Team(2018)]%
+        {Coin}
+\bibfield{author}{\bibinfo{person}{CoinGeko Team}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \bibinfo{title}{Cryptocurrency Prices by Market Cap}.
+\newblock
+\newblock
+\urldef\tempurl%
+\url{https://www.coingecko.com/}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Vasa(2018)]%
+        {VulnMedium}
+\bibfield{author}{\bibinfo{person}{Vasa}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \bibinfo{title}{HackPedia: 16 Solidity Hacks/Vulnerabilities, their
+  Fixes and Real World Examples}.
+\newblock \bibinfo{howpublished}{https://hackernoon.com/}.
+\newblock
+\urldef\tempurl%
+\url{https://hackernoon.com/hackpedia-16-solidity-hacks-vulnerabilities-their-fixes-and-real-world-examples-f3210eba5148?ref=tokendaily}
+\showURL{%
+\tempurl}
+
+
 \bibitem[Wang et~al\mbox{.}(2021)]%
         {MLtool}
 \bibfield{author}{\bibinfo{person}{Wei Wang}, \bibinfo{person}{Jingjing Song},
@@ -315,11 +405,8 @@
   Models for Ethereum Smart Contracts}.
 \newblock \bibinfo{journal}{\emph{IEEE Transactions on Network Science and
   Engineering}} \bibinfo{volume}{8}, \bibinfo{number}{2}
-  (\bibinfo{year}{2021}), \bibinfo{pages}{1133--1144}.
+  (\bibinfo{year}{2021}).
 \newblock
-\urldef\tempurl%
-\url{https://doi.org/10.1109/TNSE.2020.2968505}
-\showDOI{\tempurl}
 
 
 \end{thebibliography}

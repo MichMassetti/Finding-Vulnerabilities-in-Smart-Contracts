@@ -97,7 +97,9 @@ language=german, language=spanish, language=english]{acmart}
 %%\citestyle{acmauthoryear}
 
 %%
-%% end of the preamble, start of the body of the document source.
+%% end of the preamble, start of the body of the document source
+
+
 \input{solidity-highlighting.tex}	
 \begin{document}
 
@@ -198,10 +200,9 @@ This paper deals with the discovery of the vulnerabilities in Ethereum-based Sol
 \maketitle
 
 \section{Introduction}
-Ethereum is the most used environment regarding smart contracts. Its DeFi (decentralized ﬁnance)
-and dApps (decentralized applications) count the highest amount of dollars exchanged rather than the other distributed systems. Moreover, it can be described as the "internet of Blockchain", because Ethereum allows other systems to be built on top of itself, adopting its technology.
+Ethereum is the first blockchain which introduced the usage of smart contracts. Moreover, it can be described as the "internet of Blockchain", because it allows other systems to be built on top of itself, adopting its technology.
 
-This growing technology has fascinated many investors, indeed, according to \href{https://www.coingecko.com/}{CoinGeko}, 
+This growing technology has fascinated many investors, indeed, according to CoinGeko (\cite{Coin}), 
 the crypto market's value is standing around \$2 trillion. 
 On the other hand, interest in such a market has grown even among malicious attackers. 
 Attacks such as the “Parity Wallet Hack” and the “Decentralized Autonomous Organization Attack” cost millions of dollars simply because of 
@@ -220,47 +221,59 @@ literature review focuses on studies dealing with vulnerabilities and methodolog
 research questions:
 \begin{itemize}
     \item Which are the main vulnerabilities in Smart Contracts?
-    \item Which are the most used analysis tools and which strategies are adopted for finding vulnerabilities?
+    \item Which analysis tools and which strategies are adopted for finding vulnerabilities?
     \item Which are possible new approaches for discovering vulnerabilities?
 \end{itemize}
-Section \ref{Background} gives an overview of blockchain and smart contracts technology, the execution environment and model. 
-In our work we focus on the Ethereum platform, however many concepts are equivalent in multiple blockchain EVM (Ethereum Virtual Machine) compatible.
+
 
 In Section \ref{RelatedWork}, we deal with the actual papers and studies regarding this topic, citing the ones we reviewed for the writing of this paper.
 
+Section \ref{Background} gives an overview of blockchain and smart contracts technology, the execution environment and model. 
+
 Section \ref{Vulnerabilities} gives a taxonomy for the main vulnerabilities about Solidity. 
 
-We present the analysis tools we selected in Section \ref{MethodologiesForTools}, explaining their methodologies. Moreover, it deals with 2 more strategies implemented for the same aim: Machine Learning and testing deployed contracts.
+We present the analysis tools we selected in Section \ref{MethodologiesForTools}, explaining their methodologies. Moreover, it deals with two more strategies implemented for the same aim: Machine Learning and testing deployed contracts.
 
-Section \ref{Discussion} is addressed to a comparison between the discussed methodologies and possible strategies for the prevention of exploits.
+Section \ref{Discussion} is addressed to a comparison between the discussed methodologies and 
+possible strategies for the prevention of exploits.
 
 
 
 \section{Related Work}
 \label{RelatedWork}
 Our work is addressed to define the most common vulnerabilities and the most used tools for finding those.
-The first step was getting in touch with research works which deal with topics such as vulnerabilities and analysis tools. For a better comprehension of the matters, we collect information about the basis of blockchain technology and security terminology. \cite{ETHfoundation} provides an overview of Ethereum environment. 
+The first step was getting in touch with research works which deal with topics such as vulnerabilities and analysis tools. For a better comprehension of the matters, we collect information about the basis of blockchain technology and security terminology. 
 
-We picked the analaysis tools strating from the reading of surveys and papers as \cite{SurvTools}, \cite{Thesis}, \cite{AutomaticTools}, \cite{AttacksAndProtection}, \cite{ToolsAndVuln}. 
-Those deal with a great number of tools, defining their characteristics and those produce a comparison between tools based on selected benchmarks. We deepen our knowledge about the tools by reading their provided papers
-(\cite{Slither} \cite{Echidna} \cite{Manticore} \cite{SmartTest} \cite{Oyente}). 
+We selected the analaysis tools starting from the reading of surveys and papers as the ones of \citet{SurvTools}, \citet{Thesis}, \citet{AutomaticTools}, \citet{AttacksAndProtection} and \cite{ToolsAndVuln}. 
+Those deal with a great number of tools, defining their characteristics and those produce a comparison between tools based on selected benchmarks. We deepen our knowledge about the tools by reading their provided papers or online documentation.
 
-\cite{Methodologies} compare different strategies implemented by tools, citing even Machine Learning, which has been used in this matter just recently.
-Since Machine Learning popularity has grown in the computer science, recent papers has proposed it as a technique in this field, for example \cite{FuzzML}, which tries to combine it with fuzzing, and \cite{MLSmartContractPropose}. 
+\citet{Methodologies} in their paper, compare different strategies implemented by tools, citing even Machine Learning, which has been used in this matter just recently.
+Since Machine Learning popularity has grown in the computer science, recent papers has proposed it as a technique in this field. 
 
-We drew the definition of the vulnerabilities through the benchmark used by the papers, moreover, we based our selection on the two most used open-source databases for smart contract vulnerabilities, which are \cite{SWC} and \cite{DASP10}.
+We drew the definition of the vulnerabilities through the benchmark used by the papers, moreover, we based our selection on the two most used open-source databases for smart contract vulnerabilities, which are "Smart Contract Weakness Classification and Test Cases" (SWC) \cite{SWC} and "Decentralized Application Security Project" (DASP) Top 10  \cite{DASP10}. The former is a website, which is updated by the community containing the most common solidity vulnerability. It shows the vulnerabilities, defining an identifier (ID) and a list of related code samples. The latter is an open and collaborative project run by a private company, the NCC group. It presents ten different Solidity vulnerabilities, considered as the most relevant by the authors. Each one is presented with a brief description and a code example.
 
 \section{Background}
 \label{Background}
-This section gives to the reader some basic knowledge about blockchain, focusing on Ethereum and its smart contracts. We briefly introduce its general structure and how security is applied in this context.
+This section gives the reader the basics of blockchain, 
+focusing on Ethereum and its smart contracts. We briefly introduce its general 
+structure and how security is applied in this context.
+
+The sources of our description of blockchain involve the general overview of this topic shown by the Ethereum Foundation (\cite{ETHfoundation}), 
+the article written by \cite{BcArticle} and, our academic and work experiences.
+
+We provide an overview of the Ethereum environment by 
+collecting the information from the official 
+documentation 
+on the Ethereum Foundation (\cite{ETHfoundation}) and the presentation paper written by \citet{Ethereum}.
+The definition of smart contract is embedded in those works, 
+but for a deepen view we considered as well the article written by \citet{ScArticle}.
 
 \subsection{Blockchain}
-
-Blockchain is a shared ledger that holds transactions and information in a decentralised peer-to-peer network. A blockchain acts as a database, storing information in a digital format. 
+Blockchain is a shared ledger that holds transactions and information in a decentralised peer-to-peer network. This acts as a database, storing information in a digital format. 
 This technology is best known for its vital role in cryptocurrency systems, such as Bitcoin, to maintain a secure and decentralized record of transactions. 
 The innovation is that it ensures the truthfulness and security of data records and creates trust without the need for a trusted third party.
 
-It acts like a database, however, it organises data into units called blocks, each of which contains a collection of data.
+It acts like a database, however, it organises data into units called blocks, each containing a collection of data.
 Blocks have specific storage capacities, and when they are full, they are closed and linked to the preceding block, producing a data chain known as the blockchain.
 All additional information added after that newly added block is compiled into a new block, which is then added to the chain after it is filled.  
 
@@ -271,7 +284,6 @@ To achieve this distributed agreement, blockchains need a consensus mechanism.
 
 The purpose is to allow digital information to be recorded and distributed, but not edited. 
 In this way, an immutable ledger or record of transactions is generated, thus that cannot be modified, deleted, or destroyed. 
-This is why blockchain is also known as DLT (Distributed Ledger Technology). 
 
 
 \subsection{Ethereum Environment}
@@ -282,18 +294,18 @@ It has a token built for usage on the blockchain network, but it may also be use
 It is built to be decentralised, scalable, programmable, and secure. It is the blockchain of choice for developers and businesses who are building technologies on top of it to transform numerous sectors and our everyday lives.
 It natively supports smart contracts, which are the essential tool behind decentralized applications. Regarding development and interaction, Ethereum is the leader in this sector. 
 
-In the Ethereum universe, there is a single, canonical computer (known as the Ethereum Virtual Machine, or EVM) whose state everyone on the Ethereum network agrees on. 
+In the Ethereum universe, there is a single, canonical computer (known as the Ethereum Virtual Machine, or EVM) whose state everyone on the Ethereum network agrees on.
 Every Ethereum node (participant in the Ethereum network) saves a copy of this computer's current state. 
 A participant can also broadcast a request for this computer to conduct any computation they choose. 
 When a request like this is broadcast, other network members verify, validate, and carry out (or "execute") the computation. 
-The EVM's state changes as a result of this execution, which is committed and propagated throughout the network. The consensus algorithm, which ensures the correct system's behaviour, is called "proof of works". 
+The EVM's state changes as a result of this execution, which is committed and propagated throughout the network. The consensus algorithm, which ensures the correct system's behaviour, is called "proof of work" (POW). 
 It involves that anyone, who wishes to add additional bricks to the chain, must first solve a complex challenge that takes a lot of processing resources.
 Solving the puzzle "proves" that you used computing resources to do the "job."
-Mining is the process of doing so. It is usually done by trial and error, but adding a block earns you ETH. The nodes, which compute these types of operation, are called "miners".
+Mining is the process of doing so. It is usually done by trial and error, but adding a block earns you Ethereum native token (ETH or ether) as rewards. The nodes, which compute these types of operation, are called "miners".
 
-Recently, Ethereum is moving off of POW, it is implementing "proof of stake" as a consensus algorithm. It has the consequence that the nodes are no anymore called miners but validators. These have to stake, and collect, at least 32 ETH on a smart contract on the chain. The nodes have the same role of validating the transaction, but in this way, computational and electrical energies are saved.
+Recently, Ethereum is moving off of POW, it is implementing "proof of stake" (POS) as a consensus algorithm. It has the consequence that the nodes are no anymore called miners but validators. These have to stake, and collect, at least 32 ETH on a smart contract on the chain. The nodes have the same role of validating the transaction, but in this way, computational and electrical energies are saved.
 
-Transactions are cryptographically signed instructions from accounts, which are any entities which can collect the native token, called ETH or ether. An account will initiate a transaction to update the state of the Ethereum network. 
+Transactions are cryptographically signed instructions from accounts, which are any entities which can collect the native token. An account will initiate a transaction to update the state of the Ethereum network. 
 The miners are responsible to collect the transaction, changing the state of the EVM and broadcasting those in the network. Transactions require a fee and must be mined to become valid. 
 The unit of measurement for the amount of computing effort necessary to perform various activities on the Ethereum network is called gas. It represents the fuel of the blockchain. 
 The account can set a limit on the amount of ETH to pay. If the price of gas is less than the one paid by the user, it has a refund. If the amount of fees is not enough, a "out of gas" exception can occur.
@@ -308,9 +320,10 @@ The definition given by the Ethereum foundation of Smart concract is:
 It is considered a type of account, which is any entity with an ether balance that can send transactions on Ethereum. 
 They are deployed on the network and run according to the code. User accounts can then engage with a smart contract by sending transactions that instruct the smart contract to perform a function. 
 Smart contracts, like conventional contracts, can set rules and have them enforced automatically through programming.
+
 They can't be deleted by default, and their interactions are permanent. 
 
-The EVM smart contracts can be programmed in several languages. The most active and maintained language is Solidity, which our work deals with. 
+The EVM compatible smart contracts, the ones which can run on the Ethereum Virtual Machine, can be programmed in multiple languages defined by Ethereum Foundation. The most active and maintained language is Solidity, which our work deals with. 
 
 It is an object-oriented and high-level language. It supports:
 \begin{itemize}
@@ -319,24 +332,14 @@ It is an object-oriented and high-level language. It supports:
   \item complex user-defined types.
 \end{itemize}
 
-A smart contract, as a program developed in other programming languages, contains parameters, a constructor and functions. A peculiarity of this language is the fallback functions. 
-
-They have been involved in many attacks, as will be explained in section \ref{Vulnerabilities}, but they were developed without a malicious aim. 
-They are external functions with neither a name, parameters, or return values. Only one fallback can be assigned to a contract. 
-A fallback function is triggered:
-\begin{itemize}
-  \item if a function identifier does not match any of the available functions in a smart contract;
-  \item if there was no data supplied along with the function call.
-\end{itemize}
-
-A fallback function always receive data, but it should be marked as payable for accepting ETHs. 
-
+A smart contract, as a program developed in other programming languages, contains parameters, a constructor and functions.
 
 \subsection{Security of Smart Contracts}
 Smart contracts are public and available by every account on the chain, but they can represent a drawback. In the security field, developers can implement some strategies by design for preventing malicious operations. For protecting software, multiple layers of secuirty can be implemented: a firewall can be deployed or even an IDS (intrusion detection system), the software can be achieved just by logging in to the VPN (virtual private network) scanning all the traffic.
 
 On the other hand, none of those can be applied in smart contracts environment, so finding vulnerabilities is a big challenge for developers. 
 Malicious accounts can exploit the bug inside the smart contract, but developers should be aware the order of the execution of transactions depends even on the miners which compute the blocks.
+
 
 \begin{table*}
   \caption{Collection of Vulnerabilities}
@@ -369,9 +372,15 @@ This includes locked or stolen resources, breaches of confidentiality or data in
 changes in the environment of smart contracts that were not
 detected by developers or users, therefore they possibly are exploited by a malicious part.
 
-We summaries different vulnerabilities, providing a definition and \autoref{tab:CollectionOfVulnerabilities} shows the correlation with Dasp10 and SWC, associating per each vulnerability the identifier per project.
+We summarise different vulnerabilities, providing a definition and \autoref{tab:CollectionOfVulnerabilities} shows the correlation with Dasp10 and SWC, associating each vulnerability with the identifier per project.
 
-The last section deals with an overview of bugs in the logic of a smart contracts. It awarns that a vulnerability can rely even upon an incorrect implementation of the contracts.
+For forging this section, we collected information from the two open source databases SWC and Dasp10. Other sources from which we have drawn, 
+are Solidity by Example \cite{SolidityExamples}, 
+which has the aim to code examples to allow the users to improve their knowledge of Solidity, indeed it has a section reserved for the attacks. 
+
+The article written by \citet{VulnMedium} was very useful for our work, because it presented sixteen vulnerabilities, providing each one with a code example, plus in some cases a real-world reference as well.
+
+The section \autoref{RelatedWork} cites different papers which deal with vulnerabilities, our presentation is drawn from the collection of related work involved in our literature research. 
 
 \subsection{Reentrancy} 
 Reentrancy is one of the vulnerabilities much more exploited in recent years. 
@@ -380,12 +389,24 @@ A reentrancy attack can occur when a function makes an external call to another 
 A recursive call back to the original function is made by the attacker, before 
 the function could update the state of the variables. 
 The goal is repeating interactions that would have otherwise not run after the effects were resolved. 
+
+One of the fundamental of this attack is the usage of fallback by the malicious contract. 
+They are functions with neither a name, parameters, or return values. Only one fallback can be assigned to a contract. 
+A fallback function is triggered:
+\begin{itemize}
+  \item if a function identifier does not match any of the available functions in a smart contract;
+  \item if there was no data supplied along with the function call.
+\end{itemize}
+
+A fallback function always receive data, but it should be marked as payable for accepting ETHs. 
+
 The function withdraws, lines 5 to 11 \autoref{lst:Reentrancy}, implements this bug, because the balance of the user is updated after the external call. 
-The attacker, with the usage of a malicious smart contract, can call again the vulnerable function. 
+The attacker, with the usage of a malicious smart contract, can call again the vulnerable function, using a fallback function, triggered when the smart contract receives ETH. 
+
 It is run multiple times, without updating the balance, and withdrawing all the funds. There are several countermeasures for this type of bug: 
 semaphores logic can be implemented with the modifiers, and the update of the variable can be moved before the external call. 
 The external call can be safe if the developer checks the amount of gas used, to avoid an attacker can modify the control flow. 
-One of the fundamental of this attack is the usage of fallback by the malicious contract, which is triggered every time it receives ETH.
+
 
 \begin{lstlisting} [language=Solidity, caption={Reentrancy}, label={lst:Reentrancy}]
 contract EtherStore {
@@ -423,7 +444,7 @@ contract Attack {
 \end{lstlisting}
 
 \subsection{Unexpected Ether balance} 
-A smart contract of which logic relies on its balance can be exposed to unexpected receiving of ETH. 
+A smart contract of which logic relies on its balance can be exposed to unexpected receiving of ETH.
 A DOS attack can occur when the smart contract strictly assumes a specific token balance. 
 In Solidity there is the fallback called "receive", which is a function triggered by the reception of ETH, so the developer can prevent a transaction could send ether. However, it is always possible to forcibly send ether to a contract (without triggering its fallback function), using "self-destruct", or by mining to the account. Smart Contracts which rely on code execution for every ether sent to the contract can be vulnerable to attacks where ether is sent.
 In the provided example (\autoref{lst:UnexpectedEther}), in the function play() line 5 there is a require, which checks no players can play when the balance 
@@ -468,10 +489,9 @@ The attacker can craft the input value of a vulnerable contract's function in or
 In the contract TimeLock in \autoref{lst:ArithmeticOp}, an attacker could forge a parameter of the function function increaseLockTime, 
 in oder to set lockTime to 0 because of Overflows. So it can call withraw and passing the require at line 17.
 The most common way for solving these issues is to build or use mathematical libraries which replace the standard math operators. 
-\href{https://www.openzeppelin.com/}{OppenZepplin} is a company, dealing with Blockchain technologies. It has done a great job in building and auditing secure libraries which can be leveraged by the Ethereum community.
-SafeMath library can be found in most of the deployed smart contracts. 
 
-In Solidity version 0.8.0 arithmetic operations revert on underflow and overflow, consequently this vulnerability is avoided.
+In Solidity version 0.8.0 arithmetic operations revert on underflow and overflow, consequently these vulnerabilities are avoided.
+
 \begin{lstlisting}[language=Solidity,caption={Overflows \& Underflows},label={lst:ArithmeticOp}]
 contract TimeLock {
     mapping(address => uint) public balances;
@@ -520,7 +540,7 @@ A malicious miner could adjust the timestamp for getting the win.
 
 \subsection{Transaction Ordering Dependence} 
 
-Miners are responsible for the creation and certification of the blocks on the blockchain. 
+Miners are responsible for the creation and certification of the blocks. 
 Inside those, the transactions are stores, but their order is not guaranteed by 
 design and the miners can easily manipulate that. Consequently, this makes smart contracts vulnerable to transaction
 order dependency, which can be classified as a type of race condition. The vulnerability relies on smart contracts' critical decisions 
@@ -639,27 +659,29 @@ A reason for an attack can rely even on the miscomputation of the algebraical fo
 
 \section{Methods for Finding Vulnerabilities}
 \label{MethodologiesForTools}
-This section is addressed to present the most effective and common tools with their strategies in Ethereum smart contracts context. 
-We classify the tools in 2 main categories: with and without specification. Tables \ref{tab:ToolsWithoutSpec} and \ref{tab:ToolsWithSpec} collect the tools. 
-In the first case, tools need specifications for running. On the other hand,  the former group 
-deals with those which can give a result from the solidity file.
-The last subsections deals with general methodologies which are very useful in this context. 
+This section is addressed to present some analysis tools with their strategies for finding vulnerabilities in Solidity smart contracts. Moreover, we have a general overview of two different strategies.
+We classify the tools in two main categories: with and without specification. 
+We decided on this taxonomy based on the practical aspects of those. We wanted to underline which ones are "plug and play", so these can give a result starting from the solidity file, without any additional information. On the other hand, the other group requires custom specifications, for providing effective results.
 
+Tables \ref{tab:ToolsWithoutSpec} and \ref{tab:ToolsWithSpec} collect the tools. 
+
+The last subsections deal with general methodologies.
 Machine Learning has been adopted in research and it is getting more effective. 
 
-Checking the absence of bugs is fundamental, but even certifying the contract fulfils the prefixed goals is necessary. Thus, before deployment on the blockchain, there are strategies to control the behaviour of the contract in a similar environment.
+Checking the absence of bugs is fundamental, but even certifying the contract fulfils the prefixed goals is necessary. Thus, before deployment on the blockchain, there are strategies to control the behaviour of the contract, providing tests in a similar environment.
 
 \subsection{Tools without specifications}
+\label{ToolsWithouSpecifications}
 \begin{table*}
   \caption{Tools without Specifications}
   \label{tab:ToolsWithoutSpec}
-  \begin{tabular}{cll}
+  \begin{tabular}{cc}
   \toprule
     Name & Keywords\\
     \midrule
     Slither & Static Analysis Scanner\\
     Mythril & Symbolic execution, Contract Bytecode \\
-    SmartTest & Symbolic execution, Susceptible transaction sequences,\\
+    SmarTest & Symbolic execution, Susceptible transaction sequences,\\
     Oyente  & Symbolic execution, Execution paths \\
     \bottomrule
  \end{tabular}
@@ -668,56 +690,62 @@ Checking the absence of bugs is fundamental, but even certifying the contract fu
 In this subsection we present the list of tools without specification, providing for each of them a general overview of its methodology for finding vulnerabilities.
 
 \paragraph{Slither} 
-Slither is a smart contract code static analysis framework.
-It has rapid and reliable security detection algorithms for potential bugs.
+Slither is a smart contract code static analysis framework (\cite{Slither}).
+It has security detection algorithms for potential bugs based developed i Python.
 Slither can be used for automatic vulnerability identification, automated optimization detection, code interpretation, and assisted code review, among other things.
 A multi-stage approach is the key point for the analysis.
 From the contract source code, the Solidity compiler generates a Solidity Abstract Syntax Tree (AST), which represents the input source of the tool.
 
-Slither definents the issues of the contract in this and important features. The inheritance graph, Control-flow graph (CFG), and so on are generated during the early stage.
-The next stage includes converting the complete code to SlithIR.
-The last step covers the computation of a list of pre-defined analyses. 
+Slither uses that input for computing a list of pre-defined analyses. 
 
+Its outcomes provide the label of the SWC database for defining the vullnerability.
 \paragraph{Mythril} 
-Mythril is an open-source security tool that examines Solidity-based smart contracts.
+Mythril is an open-source security tool that examines Solidity-based smart contracts (\cite{Mythril}).
 It employs the symbolic execution technique as methodology for the analysis.
 The bytecode of the smart contract is generated and then is run in a custom EVM, for looking for security issues.
-When a programme bug is detected, the input transactions are examined to establish the cause. 
+When a bug is detected, the input transactions are examined to establish the cause. 
 
 This security strategy aids in determining the root cause of a program's vulnerability as well as mitigating exploitation.
 
-Mythril accepts as input the source code of the contract, but even its bytecode. If the user provides the end point with the blockchain, it can analyse even contracts on-chain.
+Mythril accepts as input the source code of the contract, but even its bytecode. 
 
-Its ouput provides the list of the transaction for triggering the bug and the label of the SWC database for defining the vullnerability.
+If the user provides the end point with the blockchain, it can analyse even contracts on-chain.
 
-\paragraph{SmartTest}
-SmartTest is an Ethereum smart contract safety analyzer.
-For effectively detecting susceptible transaction sequences, it uses a symbolic execution method.
+Its ouput provides the list of the transaction for triggering the bug and ,as well as Slither,  the label of the SWC database for defining the vullnerability.
+
+\paragraph{SmarTest}
+SmarTest is an Ethereum smart contract safety analyzer (\cite{SmarTest}).
+To effectively detect susceptible transaction sequences, it uses a symbolic execution method.
 The tool to detect transaction sequences, showing the weaknesses of the examined smart contract, is the project's core problem.
-As a result, bugs are discovered as the source of multiple transaction interaction.
-SmartTest's goal is to automatically deliver vulnerable transaction sequences that demonstrate the smart contract's flaws. 
+As a result, bugs are discovered as the source of multiple transaction interactions.
+SmarTest's goal is to automatically deliver vulnerable transaction sequences that demonstrate the smart contract's flaws. 
 The fundamental idea is to leverage known vulnerable transaction sequences to develop a statistical model that can be used to drive symbolic execution 
 towards more successfully discovering unknown vulnerabilities.
 
-Statistical language models direct symbolic execution, allowing it to select transacion sequences that are likely to reveal vulnerabilities.
+Statistical language models direct symbolic execution, allowing it to select transaction sequences that are likely to reveal vulnerabilities.
 The first step in this strategy is to perform unguided symbolic execution on existing vulnerable contracts, followed by learning a probability 
 distribution over vulnerable transaction sequences. The detection of the following six types of security-critical vulnerabilities are supported
 by the tool: integer over/underflow, assertion violation, division-by-zero, ERC20 standard
 violation, Ether-leaking vulnerability (e.g., unauthorized access to transfer), and suicidal
-vulnerability (e.g., unauthorized access to selfdestruct). 
+vulnerability (e.g., unauthorized access to self-destruct). 
 
 A limitation of this tool involves the lack of the detection of vulnerabilities that require analysis of the interaction of
 multiple contracts to demonstrate the flaws: reentrancy is not covered.
+
 \paragraph{Oyente}
-Oyente is a symbolic execution tool for finding smart contract security flaws, written in Python.
+Oyente is a symbolic execution tool for finding smart contract security flaws, written in Python (\cite{Oyente}). 
+Regarding our literature research, this is one of the first tools for security analysis of Solidity smart contracts. 
+Its first version was deployed in 2016.
+
 It analyses Ethereum smart contracts for security flaws that could lead to possible attacks.
 Dangerous bugs are not the only focus of this, but it also looks at every possible execution path, which can trigger an exploit.
 
-The Solidity compiler is used for obtaining bytecode, necessary for the analysis, and the disassembler from
-Go-Ethereum displays opcodes in symbolic form.
+The Solidity compiler is used for obtaining the bytecode, necessary for the analysis, and the disassembler displays opcodes in symbolic form.
 
 The symbolic execution approach uses a mathematical formula to reflect the characteristics of an execution path.
 Oyente compares the new formula to the ones that contain common bugs, so it can verify if both formulas are valid at the same time. 
+
+The outcomes of the tool provide, if it is possible, a list of transactions for exploiting the discovered vulnerability.
 
 \subsection{Tools with specifications}
 
@@ -740,51 +768,58 @@ The tools with specifications are listed in this subsection. We outline their ma
 
 \paragraph{Echidna} 
 Echidna, Slither and Manticore were developed by the same researchers.
-It's a sophisticated fuzzer for EVM that finds problems in Solidity code.
+It is a fuzzer for EVM that finds problems in Solidity code (\cite{Echidna}).
 To conduct deep analysis for defects, this tool just requires Solidity propositions and provides a simple user interface (UI) to simplify its results.
 Echidna tries several combinations of inputs until it succeeds in breaking the given property.
 Echidna has a few characteristics with Manticore, allowing it to function at the EVM level.
 It can also be merged into CI (continuous integration) to detect code issues while development is ongoing. 
 
-The 2 most effective modes of this tool are the property mode and the assertion mode. In the first case, the developer writes in the smart contract a function, called the prefix "echidna\_test". It has the keywords public, callable by anyone, and view, because it does not alternate the variables. The return value is a \text{boolean} and it represents the property which the tool tries to break, for example, a variable uint cannot be greater than 100. On the other hand, in assertion mode, the developer writes the properties to check using the "assert(condition)". In both cases, the sequence of the function call for breaking the property is given, if it is found.
+The two most effective modes of this tool are the property mode and the assertion mode. In the first case, the developer writes in the smart contract a function, called the prefix "echidna\_test". It has the keywords public, callable by anyone, and view because it does not alternate the variables. The return value is a \text{boolean} and it represents the property which the tool tries to break, for example, a variable uint cannot be greater than 100. On the other hand, in assertion mode, the developer writes the properties to check using the "assert(condition)". In both cases, the sequence of the function call for breaking the property is given, if it is found.
 
-Since it provides the list of function call of the contracts,a limitation of this tool is its impossibility to detect a reentrancy issues, which involves external ones. It can cover those, just if the malicious contract is provided, so it recognise the sequence of function for the exploit.
+Since it provides the list of function call of the contracts, a limitation of this tool is its impossibility to detect reentrancy issues, which involves external ones. It can cover those, just if the malicious contract is provided, so it recognises the sequence of function for the exploit.
 
 \paragraph{Manticore} 
-Manticore is a Solidity audit tool that analyzes smart contracts symbolically.
+Manticore is a Solidity audit tool that analyzes smart contracts symbolically (\cite{Manticore}).
 Manti-key core's functions include tracing inputs that terminate a program, logging instruction-level implementation, and offering Python API access to its analysis engine.
 It features a capability called dynamic symbolic execution that examines binaries and Ethereum smart contracts.
-The Core Engine, Native Execution Modules, and Ethereum Execution Modules are the three main components of Manticore's architecture.
-Secondary features include the Satisfiability Modulo Theories (SMT-LIB) module, Event System, and API. 
 
-Manticore can be run as a verifier, which means the developer specifies properties in the contract and the tool tries to break those. It has a similar grammar to Echidna, but in this case, the function name prefix is "crytic\_test". Otherwise, Manticore implements scanner modules for solidity, so it can detect the risk of typical vulnerabilities, such as reentrancy.
+Manticore can be run as a verifier (\cite{ManticoreVerifier}), which means the developer specifies properties in the contract and the tool tries to break those. It has a similar grammar to Echidna, but in this case, the function name prefix is "crytic\_test". Otherwise, Manticore implements scanner modules for solidity, so it can detect the risk of typical vulnerabilities, such as reentrancy.
 
 \paragraph{SolcVerify} 
-SolcVerify is an Ethereum smart contract source-level verification tool.
+SolcVerify is an Ethereum smart contract source-level verification tool (\cite{SolcVerify}).
 It accepts Solidity smart contracts and uses modular programme analysis to discharge verification conditions.
 Because it is built on top of the Solidity compiler, it can reason at the contract source code level.
-Solc-verify can reason about high-level contract properties while reliably modelling low-level language semantics as a result of this.
-It is a compiler extension for the Solidity language.
-It receives a collection of Solidity contracts, including specification annotations, and discharges verification conditions using the Boogie verifier and SMT solvers.
-It converts annotated contracts to Boogie Intermediate Verification Language (BIVL).
+SolcVerify can reason about high-level contract properties while reliably modelling low-level language semantics as a result of this.
+It receives a collection of Solidity contracts, including specification annotations, and discharges verification conditions using the Boogie verifier and Satisfiability modulo theories (SMT) solvers.
+It converts annotated contracts to Boogie Intermediate Verification Language (BIVL). 
+Its specification language is made by annotations. The user has to add the annotations to the smart contract, using the notations "///@notice ", for defining the specifications.
+The output of this include does not cover the list of transactions for unproven the property, but it states if it could prove or unproven the specification.
 
 \subsection{Machine Learning}
-The adoption of machine learning techniques in the field of smart contracts is a result of their growing popularity. To identify suicidal, prodigal, and greedy contracts, \cite{MLAnalysis} implemnts a long-short term memory (LSTM).
-By classifying contracts that were discovered by MAIAN as vulnerable during training, they were able to improve the LSTM model's test accuracy. 
+The adoption of machine learning (ML) techniques in the field of smart contracts is a result of their growing popularity. 
 
-\cite{CNNML} deals with the training of a CNN (convolutional Neural Network) by converting a sizable amount of Ethereum bytecode into RGB colour coding,  trained a CNN model. The model now automatically analyses input bytecode to flag potential compiler errors. 
+An example of adoption of this technique for detecting vulnerable smart contract is proposed by \citet{MLAnalysis}.
+The authors introduce a long short-term memory (LSTM) model, which is a ML model involving a variant of recurrent networks mainly used to solve difficult sequential problems,with the aim of detecting smart
+contract security threats at an opcode level. 
+By classifying contracts that were discovered by MAIAN (\cite{MAIAN}) as vulnerable during training, they were able to improve the LSTM model's test accuracy. MAIAN is a tool which classifies the vulnerable contracts as:
+\begin{itemize}
+    \item suicidal:  smart contracts that can be killed by any arbitrary address; 
+    \item prodigal: those which may lose funds to arbitrary addresses, which do not belong to the contract owner, or have not deposited Ether to the contract.
+    \item greedy: those which cannot discharge Ether. 
+\end{itemize} .
 
 ContractWard (\cite{MLtool}) is an example of attempt of Automated Vulnerability Detection Models for Ethereum Smart Contracts. It can detect the following six types of vulnerability: 
 \begin{itemize}
-    \item integer Overflow and Integer Underflow Vulnerabilities;
+    \item integer Overflow;
+    \item integer Underflow Vulnerabilities;
     \item transaction-Ordering Dependence (TOD);
     \item callstack depth attack vulnerability;
     \item timestamp dependency;
     \item reentrancy vulnerability.
 \end{itemize}
 
-The model adopts two simple classification algorithms, namely, SVM and KNN together with two sampling methods.
-The source codes of the smart contracts selected as datasets are transformed into operation codes (opcodes). Oyente is used to label all the contracts, which have six labels each.  N-Gram, which refers to n words that appear
+The model adopts two simple classification algorithms, namely, Support vector machine (SVM) and K-nearest neighbours (KNN) together with two sampling methods.
+The source codes of the smart contracts selected as datasets are transformed into operation codes (opcodes). Oyente, an analysis tool summarized in a paragraph in the subsection \autoref{ToolsWithouSpecifications}, has the role to scan the contracts and define their labels, which are six per each. Those are used to label the test set, for training the ML model.  N-Gram, which refers to n words that appear
 continuously in text, is the algorithm implied for feature extraction.
 One vs. Rest (OvR) algorithm is adopted for multi-label classification where
 C1, C2, C3, C4, C5 and C6 correspond to the six selected vulnerabilities. 
@@ -792,31 +827,27 @@ Finally, detection models are built based on the balanced
 training sets for the detection.
 
 \subsection{Testing Smart Contracts On-Chain}
-The purpose of the analysis tools is to provide assurance that there are no bugs. Some of them even attempt to violate the provided rules or check ones. However, developers even have the ability to test the contract logic in a similar to the actual environment, to verify the correct program workflow.
+The purpose of the analysis tools is to assure that there are no bugs. Some of them even attempt to violate the provided rules or prove properties. However, developers can test the contract logic in a similar way to the onchain environment, to verify the correct program workflow.
 
-The deployment of a smart contract in an environment as much similar to the on-chain one, helps the programmers to test and have a response to the behave of the software.
+The deployment of a smart contract in an environment as much similar to the onchain one, helps the programmers to have a response to the actual behaviour of the software.
 
-Multiple blockchain systems provide a "testnet". A testnet is used for testing and experimentation without risk to real funds or the main chain. It is the same behaviour as the mainnet, but then it has a different purpose, for example, the number of native tokens is unlimited.
-About Ethereum, Ethereum Kovan is the most used one. 
+Multiple blockchain systems provide a "testnet". This is used for testing and experimentation without risk to real funds or the main chain. It is the same behaviour as the mainnet, but then it has a different purpose and characteristics, for example, the number of native tokens is unlimited.
 
-The network can be virtualised on a machine for development. Hardhat is a powerful tool which carries that. As presented in their documentation (\cite{HardhatDoc}), Hardhat comes built-in with Hardhat Network, a local Ethereum network node designed for development. It provides the option to fork the mainnet, so it is possible to reproduce exactly the real on-chain state. It allows to fork the chain, starting from a specific block.
-
+The network can be virtualised on a machine for development. A tool with this aim is Hardhat, supported by Ethereum Foundation (\cite{HardhatDoc}). This comes built-in with Hardhat Network, a local Ethereum network node designed for development. It provides the option to fork the mainnet, so it is possible to reproduce exactly the real on-chain state. It allows to fork the chain, starting from a specific block.
 
 \section{Discussion}
 \label{Discussion}
 
-Since every user on the blockchain can access directly to the smart contracts, the security of those is a challenge. The source code might be private, but it is always possible to draw the bytecode; in most projects, for ingratiating the investors, developers publish the source code of these.  
+Since every user on the blockchain can have direct access to smart contracts (and in most cases even to their source code), the security of those is a challenge. The source code might be private, but it is always possible to draw the bytecode; in most projects, for ingratiating the investors, developers publish their source code.
 
-A in-depth approach to scanning bugs is necessary before the deployment. The tools without specification can be very effective in the most common vulnerabilities, such as reentrancy and out of gas exception. On the other hand, many attacks has recently involved the logic of the program, such as the estimation of rewards for a holder, the creation of a taken or the minting (generation) of NFTs. Such similar vulnerabilities cannot be gotten by those, because in this case the property is defined by the developer itself. Tools with specifications come in our help, in this case, allowing the tester to check if the property can be broken by a malicious sequence of functions. Multiple approaches have been adapted for smart contracts, but the research is still investigating for adapting more valuable analysis techniques.
+An in-depth approach to scanning bugs is necessary before the deployment. The tools without specification can be very effective in the most common vulnerabilities, such as reentrancy and "out of gas exception". On the other hand, many attacks have recently involved the logic of the program, such as the estimation of rewards for a holder, the creation of a token or the minting (generation) of NFTs. Such similar vulnerabilities cannot be gotten by those, because in this case the property is defined by the developer itself. Tools with specifications come in our help, allowing the tester to provide custom settings involving defined properties.
 
-Machine Learning has been used for the analysis of transactions and for defining specific aspects on-chain. Another prominent use is the financial one, for estimating the best time for computing a transaction through data analysis. 
+Machine Learning has been used for the analysis of transactions and for defining specific aspects on-chain. However, its application to the scanning of solidity smart contracts research is not spread as well. Since the amount of data is growing, there are more possibilities that the accuracy of the modules can increase. 
 
-However, its application to the scanning of solidity smart contracts research is just at the beginning. Since the amount of data is growing, there are more possibilities that the accuracy of the modules can increase.  An example of ML applied in the security field is a malware scanner, which firstly converts the files as coloured images and then applied the Neural Nets to that. The problem with smart contracts is the small number of lines of code which handle a great number of investments. A misposition of a line of code might bring a loss of millions of dollars. Therefore, a false positive can have disastrous consequences.
+For having a complete overview of the behaviour of a smart contract, it should be deployed in an environment as similar as possible to the mainnet. Most of the tools do not allow inheriting specific onchain information and these should be set up correctly.
+The possibility of launching on a testnet, or virtual environment, allows the developer to have a deepen view of the effectiveness of the contract.
 
-For having a complete overview of the behaviour of a smart contract, it should be deployed in an environment as similar as possible to the mainnet. Most of the tools do not allow inheriting specific information from the main chain and these should be set up correctly. 
-The possibility of launching on a testnet, or virtual environment, allows the developer to have a deepen view of the effectiveness of the contract. Many tools allow to write test even in different languages, as javascript, and provide useful information as the code coverage.
-
-The high risk of attacks on the blockchain as a consequence of this technology is still in its first steps. An absence of legal regulation contributes to the increasing number of cyber crimes in this context. The adoption of this technology in more official fields, such as the adoption of a cryptocurrency as the currency of a country, would contribute to the research in security.
+The workflow for the correct development of smart contracts should involve a testing phase of their behaviour, and then the usage of tools for verifying the absence of vulnerabilities. Each tool has its limitation and strengths, so it is demanded to the developer chooses the correct ones for computing its customized analysis.
 
 \section{Conclusion}
 \label{Conclusion}
@@ -825,10 +856,11 @@ Sectors such as health, company management, shareholder agreements, and insuranc
 
 However, as this technology's adoption has increased, potential attackers get more interested in it, which leads to several serious exploitations. 
 Multiple security strategies adopted in common programs can be used in this context, but smart contracts logic has peculiarities. 
+The reason of such amount of attacks can be considered the absence of legal regulation contributes to the increasing number of cyber crimes in this context. The adoption of this technology in more official fields, such as the adoption of a cryptocurrency as the currency of a country, would contribute to the research in security.
 
 In this paper, our research presented the most common vulnerabilities in Solidity smart contracts. Actually, Ethereum and multiple blockchains can adopt different programming languages, but Solidity is the most used one.
 
-We selected and presented some analysis tools, describing their strategies. However, more security approaches can be applied in this field and the research is still growing. For example, Machine learning is taking its first steps in this context, but in the next years, we expect the development of multiple tools with this technology. 
+We selected analysis tools, describing their strategies, moreover we had an overview of two more strategies. However, more security approaches can be applied in this field and the research is still growing.
 
 
 %%

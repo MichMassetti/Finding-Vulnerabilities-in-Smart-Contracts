@@ -6,6 +6,11 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Database file #1: sample-base.bib
+I was expecting an "="---line 963 of file sample-base.bib
+ : 
+ : pages={1133-1144},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Too many commas in name 1 of "Gustavo Grieco, Trail of Bits,Will Song, Artur Cygan, Josselin Feist, Alex Groce" for entry Echidna
 while executing---line 2913 of file ACM-Reference-Format.bst
@@ -59,57 +64,56 @@ while executing---line 3072 of file ACM-Reference-Format.bst
 Warning--no journal in Echidna
 Warning--no number and no volume in Echidna
 Warning--page numbers missing in both pages and numpages fields in Echidna
-Warning--page numbers missing in both pages and numpages fields in CNNML
+Warning--page numbers missing in both pages and numpages fields in SolcVerify
 Warning--empty publisher in Methodologies
 Warning--empty address in Methodologies
-Warning--empty publisher in FuzzML
-Warning--empty address in FuzzML
 Warning--page numbers missing in both pages and numpages fields in Manticore
 Warning--empty booktitle in Thesis
 Warning--empty publisher in Thesis
 Warning--empty address in Thesis
 Warning--page numbers missing in both pages and numpages fields in Thesis
 Warning--page numbers missing in both pages and numpages fields in AutomaticTools
-Warning--empty address in SmartTest
-You've used 20 entries,
+Warning--empty address in SmarTest
+Warning--page numbers missing in both pages and numpages fields in MLtool
+You've used 27 entries,
             5981 wiz_defined-function locations,
-            1770 strings with 24322 characters,
-and the built_in function-call counts, 21345 in all, are:
-= -- 2681
-> -- 668
+            1801 strings with 24945 characters,
+and the built_in function-call counts, 25428 in all, are:
+= -- 3140
+> -- 802
 < -- 0
-+ -- 217
-- -- 229
-* -- 1488
-:= -- 2055
-add.period$ -- 99
-call.type$ -- 20
-change.case$ -- 140
-chr.to.int$ -- 20
-cite$ -- 38
-duplicate$ -- 1916
-empty$ -- 1358
-format.name$ -- 281
-if$ -- 5177
-int.to.chr$ -- 2
++ -- 254
+- -- 292
+* -- 1709
+:= -- 2572
+add.period$ -- 134
+call.type$ -- 27
+change.case$ -- 177
+chr.to.int$ -- 26
+cite$ -- 44
+duplicate$ -- 2257
+empty$ -- 1613
+format.name$ -- 347
+if$ -- 5996
+int.to.chr$ -- 3
 int.to.str$ -- 1
-missing$ -- 67
-newline$ -- 247
-num.names$ -- 144
-pop$ -- 759
+missing$ -- 57
+newline$ -- 334
+num.names$ -- 190
+pop$ -- 863
 preamble$ -- 1
-purify$ -- 300
+purify$ -- 391
 quote$ -- 0
-skip$ -- 688
+skip$ -- 836
 stack$ -- 0
-substring$ -- 1503
-swap$ -- 159
+substring$ -- 1713
+swap$ -- 157
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 488
-warning$ -- 18
-while$ -- 116
+type$ -- 692
+warning$ -- 17
+while$ -- 161
 width$ -- 0
-write$ -- 465
-(There were 21 error messages)
+write$ -- 622
+(There were 22 error messages)
